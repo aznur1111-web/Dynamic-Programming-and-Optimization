@@ -1,119 +1,891 @@
-<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><meta name="description" content="Az DP &amp; Optimization Lab, a single-file course for dynamic programming and optimization"><title>Az DP &amp; Optimization Lab</title>
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="aznur / dynamic programming and optimization lab — a single-file course for dynamic programming and optimization">
+<title>aznur / dynamic programming and optimization</title>
 <style>
-:root{color-scheme:dark;--bg:#111722;--panel:#192230;--panel2:#202b3a;--panel3:#141c27;--line:#2c394b;--line2:#3b4b61;--text:#e8eef7;--muted:#a7b4c7;--subtle:#8190a5;--accent:#8ab4f8;--strong:#c9ddff;--good:#9ed7bd;--warn:#edc477;--bad:#ff929e;--shadow:none;--radius:13px}
-:root[data-theme=light]{color-scheme:light;--bg:#f4f6f8;--panel:#fff;--panel2:#f7f9fb;--panel3:#f0f4f8;--line:#dce2e9;--line2:#cbd4df;--text:#17212d;--muted:#596a7e;--subtle:#718197;--accent:#315fa2;--strong:#244a82;--good:#176b4c;--warn:#8c5c04;--bad:#b33143;--shadow:0 8px 24px rgba(20,35,50,.05)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button,a,select{touch-action:manipulation}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}a{color:var(--accent);text-decoration:none}.muted{color:var(--muted)}.mono,code,pre,textarea{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
-.topbar{height:64px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:18px;padding:0 22px;background:var(--bg);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;color:var(--text)}.brand-mark{width:34px;height:34px;border:1px solid var(--line2);border-radius:10px;background:var(--panel2);display:grid;place-items:center;color:var(--strong);font-weight:850;font-size:15px}.brand strong{display:block;font-size:14px;line-height:1.2}.brand small{display:block;font-size:10px;letter-spacing:.14em;color:var(--muted);margin-top:2px}
-.top-meta{flex:1;color:var(--subtle);font-size:12px;letter-spacing:.02em}
-.top-actions{display:flex;align-items:center;gap:7px}.top-actions label{font-size:11px;color:var(--muted)}
-select,.btn{border:1px solid var(--line2);background:var(--panel3);color:var(--text);border-radius:8px;padding:8px 11px;font-size:12px}.btn{font-weight:600;white-space:nowrap}.btn:hover{border-color:var(--accent);color:var(--strong)}.btn.primary{background:var(--accent);color:#10203a;border-color:var(--accent)}:root[data-theme=light] .btn.primary{color:white}
-.layout{display:grid;grid-template-columns:264px minmax(420px,1fr);max-width:1500px;margin:auto;min-height:calc(100vh - 64px)}
-.sidebar{position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto;border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column}
-.side-title{display:flex;justify-content:space-between;color:var(--subtle);font-size:10px;letter-spacing:.14em;font-weight:800;padding:0 4px 12px}
-.pill,.tag{border:1px solid var(--line2);border-radius:6px;padding:3px 7px;font-size:10px;color:var(--muted);white-space:nowrap}
-.search{display:flex;gap:7px;align-items:center;border:1px solid var(--line);border-radius:9px;background:var(--panel3);height:39px;padding:0 10px;margin-bottom:10px}
-.search input{min-width:0;width:100%;background:transparent;border:0;outline:0;color:var(--text);font-size:12px}
-.search kbd{border:1px solid var(--line);border-radius:4px;padding:1px 5px;color:var(--subtle);font-size:10px}
-.filter{display:block;color:var(--subtle);font-size:11px;margin-bottom:12px}.filter select{display:block;width:100%;max-width:none;margin-top:5px;padding:7px}
-.tree{display:flex;flex-direction:column;gap:12px}
-.group-label{display:flex;justify-content:space-between;color:var(--subtle);font-size:10px;font-weight:800;letter-spacing:.08em;padding:4px 5px}
-.link{width:100%;text-align:left;display:flex;gap:8px;align-items:center;background:transparent;border:1px solid transparent;color:var(--muted);padding:7px 8px;border-radius:8px;min-height:34px}
-.link .num{font:10px ui-monospace,monospace;color:var(--subtle);width:19px;flex:none}
-.link .name{font-size:12px;flex:1}.link .done{color:var(--good)}
+
+:root{
+  --font:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius:4px;
+  --radius-sm:3px;
+  --radius-lg:6px;
+  color-scheme:dark;
+
+  /* Dark theme (default) */
+  --bg:#161313;
+  --panel:#1c1818;
+  --panel2:#211d1d;
+  --panel3:#211d1d;
+  --line:#302c2c;
+  --line2:#454040;
+  --text:#f1eeee;
+  --muted:#9a9898;
+  --subtle:#646262;
+  --accent:#f59e0b;
+  --accent-hover:#d97706;
+  --strong:#f1eeee;
+  --good:#10b981;
+  --warn:#f59e0b;
+  --bad:#f87171;
+  --shadow:none;
+
+  /* Visual Lab — dark stage, always dark */
+  --lab-bg:#141110;
+  --lab-deep:#0f0d0b;
+  --lab-toolbar:#1a1613;
+  --lab-border:#2a2620;
+  --lab-text:#f5f5f4;
+  --lab-muted:#a8a29e;
+  --lab-amber:#f59e0b;
+}
+:root[data-theme=light]{
+  color-scheme:light;
+  --bg:#fdfcfc;
+  --panel:#faf8f7;
+  --panel2:#f4f0ef;
+  --panel3:#f4f0ef;
+  --line:#dcd9d9;
+  --line2:#c9c4c4;
+  --text:#201d1d;
+  --muted:#646262;
+  --subtle:#9a9898;
+  --accent:#b45309;
+  --accent-hover:#92400e;
+  --strong:#201d1d;
+  --good:#10b981;
+  --warn:#b45309;
+  --bad:#b91c1c;
+  --shadow:none;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font:13.5px/1.55 var(--font);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  font-variant-numeric:tabular-nums;
+}
+button,input,select,textarea{font:inherit;font-family:var(--font)}
+button{cursor:pointer}
+button,a,select{touch-action:manipulation}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+  border-radius:var(--radius-sm);
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent-hover);text-decoration:underline}
+.muted{color:var(--muted)}
+.mono,code,pre,textarea{font-family:var(--font)}
+h1,h2,h3,h4{font-weight:600;letter-spacing:-0.01em}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;gap:16px;
+  height:56px;padding:0 20px;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:flex;align-items:baseline;gap:6px;
+  color:var(--text);text-decoration:none;
+  min-width:0;
+  font-size:12.5px;
+}
+.brand:hover{text-decoration:none}
+.brand strong{font-weight:600;font-size:12.5px;color:var(--text);}
+.brand-slash{color:var(--subtle);}
+.brand-title{color:var(--muted);}
+
+.top-meta{
+  flex:1;min-width:0;
+  color:var(--subtle);
+  font-size:10.5px;
+  letter-spacing:.02em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.top-actions{display:flex;align-items:center;gap:6px;flex:none}
+.top-actions label{font-size:10px;color:var(--subtle);text-transform:uppercase;letter-spacing:.1em}
+
+/* ============================================================
+   CONTROLS
+   ============================================================ */
+select,.btn{
+  border:1px solid var(--line2);
+  background:var(--panel3);
+  color:var(--text);
+  border-radius:var(--radius);
+  padding:6px 10px;
+  font-size:11.5px;
+  line-height:1.3;
+}
+.btn{font-weight:500;white-space:nowrap;transition:border-color .12s, color .12s}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{
+  background:var(--accent);
+  color:#161313;
+  border-color:var(--accent);
+}
+.btn.primary:hover{
+  background:var(--accent-hover);
+  border-color:var(--accent-hover);
+  color:#161313;
+}
+:root[data-theme=light] .btn.primary{color:#fdfcfc}
+:root[data-theme=light] .btn.primary:hover{color:#fdfcfc}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.layout{
+  display:grid;
+  grid-template-columns:256px minmax(0,1fr);
+  max-width:1440px;
+  margin:0 auto;
+  min-height:calc(100vh - 56px);
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar{
+  position:sticky;top:56px;
+  height:calc(100vh - 56px);
+  overflow:auto;
+  border-right:1px solid var(--line);
+  padding:18px 12px;
+  display:flex;flex-direction:column;
+  min-width:0;
+}
+.side-title{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 4px 10px;
+  color:var(--subtle);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.pill,.tag{
+  border:1px solid var(--line2);
+  border-radius:var(--radius-sm);
+  padding:2px 6px;
+  font-size:9.5px;
+  color:var(--muted);
+  white-space:nowrap;
+  font-weight:500;
+  letter-spacing:.02em;
+}
+.tag.good{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,var(--line2))}
+.tag.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,var(--line2))}
+
+.search{
+  display:flex;gap:6px;align-items:center;
+  height:32px;padding:0 8px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--panel3);
+  margin-bottom:10px;
+  color:var(--subtle);
+  font-size:11px;
+}
+.search input{
+  width:100%;min-width:0;
+  background:transparent;border:0;outline:0;
+  color:var(--text);
+  font-size:11.5px;
+  padding:0;
+}
+.search input::placeholder{color:var(--subtle)}
+.search kbd{
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:0 5px;
+  font-size:9.5px;
+  color:var(--subtle);
+  background:var(--bg);
+}
+
+.filter{
+  display:block;
+  color:var(--subtle);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+  font-weight:500;
+}
+.filter select{
+  display:block;width:100%;
+  margin-top:5px;
+  padding:6px 8px;
+  font-size:11px;
+  text-transform:none;
+  letter-spacing:0;
+}
+
+.tree{display:flex;flex-direction:column;gap:12px;min-width:0}
+.group-label{
+  display:flex;justify-content:space-between;
+  color:var(--subtle);
+  font-size:9px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 6px;
+}
+.link{
+  display:flex;gap:8px;align-items:center;
+  width:100%;text-align:left;
+  background:transparent;
+  border:1px solid transparent;
+  color:var(--muted);
+  padding:6px 8px;
+  border-radius:var(--radius);
+  min-height:30px;
+  transition:background .1s, color .1s, border-color .1s;
+}
+.link .num{
+  font-size:9.5px;
+  color:var(--subtle);
+  width:20px;flex:none;
+  font-variant-numeric:tabular-nums;
+}
+.link .name{
+  flex:1;min-width:0;
+  font-size:11.5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.link .done{color:var(--good);font-size:11px}
 .link:hover{background:var(--panel2);color:var(--text)}
-.link.active{background:var(--panel2);border-color:var(--line2);color:var(--strong)}
-.side-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:14px}
-.progress-row{display:flex;justify-content:space-between;color:var(--subtle);font-size:11px;margin-bottom:7px}
-.progress{height:5px;background:var(--panel2);border-radius:9px;overflow:hidden}.progress>div{height:100%;width:0;background:var(--accent);transition:width .25s}
-.side-actions{display:flex;gap:6px;margin-top:12px}.side-actions .btn{flex:1;padding:7px;font-size:11px}
-main{max-width:920px;width:100%;min-width:0;margin:auto;padding:28px 30px 40px}
-.breadcrumb{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--subtle);margin-bottom:16px}
-.header{padding:2px 2px 22px;border-bottom:1px solid var(--line);margin-bottom:20px}
-.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:var(--accent);margin-bottom:9px}
-.header h1{font-size:clamp(27px,3vw,36px);line-height:1.12;letter-spacing:-.035em;margin:0 0 10px;font-weight:700}
-.header p{font-size:14.5px;color:var(--muted);margin:0 0 14px;max-width:740px}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag.good{color:var(--good)}.tag.warn{color:var(--warn)}
-.header-actions{display:flex;gap:7px;margin-top:16px;flex-wrap:wrap}
-.panel{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
-.panel-head{padding:18px 20px 0}.panel-head h2{font-size:15px;margin:0 0 4px;letter-spacing:-.01em;font-weight:650}.panel-head p{font-size:12.5px;color:var(--muted);margin:0}
-.body{padding:16px 20px 20px}
-.idea{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:20px}
-.idea p{font-size:13.5px;color:var(--muted);margin:0 0 13px}
-.mental{background:var(--panel3);border:1px solid var(--line);border-radius:10px;padding:13px}
-.mental small{color:var(--subtle);font-size:10px;letter-spacing:.11em;text-transform:uppercase}
-.mental strong{display:block;margin:6px 0;font-size:13px;color:var(--strong)}
-.mental p{font-size:12px;color:var(--muted);margin:0}
-.takeaway{padding:11px 13px;border:1px solid var(--line2);background:var(--panel3);border-radius:8px;color:var(--strong);font-size:12.5px;line-height:1.6}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.mini{background:var(--panel3);border:1px solid var(--line);border-radius:10px;padding:13px}
-.mini h3{font-size:12px;margin:0 0 7px;font-weight:650}
-.mini p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.6}
-.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
-.steps li{counter-increment:s;display:flex;gap:10px;color:var(--muted);font-size:12.5px;line-height:1.55}
-.steps li:before{content:counter(s);width:23px;height:23px;flex:none;display:grid;place-items:center;border:1px solid var(--line2);background:var(--panel3);border-radius:6px;color:var(--accent);font:11px ui-monospace,monospace}
-.pseudo{white-space:pre-wrap;overflow:auto;background:var(--panel3);border:1px solid var(--line);border-radius:10px;padding:14px;font:12px/1.75 ui-monospace,monospace;color:var(--strong);margin:0}
-.table-wrap{overflow:auto}
-table{border-collapse:collapse;width:100%;font-size:12.5px}
-th,td{border-bottom:1px solid var(--line);text-align:left;padding:9px 10px;vertical-align:top}
-th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--subtle);font-weight:700}
+.link.active{
+  background:var(--panel2);
+  border-color:var(--line2);
+  color:var(--text);
+}
+.link.active .name{color:var(--text);font-weight:500}
+
+.side-foot{
+  margin-top:auto;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+.progress-row{
+  display:flex;justify-content:space-between;
+  color:var(--subtle);
+  font-size:10px;
+  letter-spacing:.06em;
+  margin-bottom:6px;
+  text-transform:uppercase;
+}
+.progress-row strong{color:var(--text);font-weight:500}
+.progress{
+  height:4px;background:var(--panel3);
+  border-radius:2px;overflow:hidden;
+}
+.progress>div{
+  height:100%;width:0;
+  background:var(--accent);
+  transition:width .25s ease;
+}
+.side-actions{display:flex;gap:6px;margin-top:10px}
+.side-actions .btn{flex:1;padding:5px 6px;font-size:10.5px}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+main{
+  max-width:900px;width:100%;min-width:0;
+  margin:0 auto;
+  padding:24px 28px 40px;
+}
+.breadcrumb{
+  font-size:9.5px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--subtle);
+  margin-bottom:14px;
+}
+.header{
+  padding:2px 0 20px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:18px;
+}
+.eyebrow{
+  font-size:9.5px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-weight:600;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+.header h1{
+  font-size:22px;
+  line-height:1.2;
+  margin:0 0 10px;
+  font-weight:600;
+}
+.header p{
+  font-size:13px;
+  color:var(--muted);
+  margin:0 0 12px;
+  max-width:720px;
+  line-height:1.6;
+}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.header-actions{
+  display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;
+}
+
+/* ============================================================
+   PANELS
+   ============================================================ */
+.panel{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:var(--radius);
+  margin-bottom:14px;
+  overflow:hidden;
+}
+.panel-head{padding:14px 16px 0}
+.panel-head h2{
+  font-size:12.5px;
+  margin:0 0 3px;
+  font-weight:600;
+  letter-spacing:0;
+}
+.panel-head p{
+  font-size:11.5px;
+  color:var(--muted);
+  margin:0;
+  line-height:1.55;
+}
+.body{padding:12px 16px 16px}
+
+.idea{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 200px;
+  gap:18px;
+}
+.idea p{font-size:12.5px;color:var(--muted);margin:0 0 11px;line-height:1.6}
+.mental{
+  background:var(--panel3);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:11px;
+}
+.mental small{
+  display:block;
+  color:var(--subtle);
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.mental strong{
+  display:block;
+  margin:5px 0;
+  font-size:12px;
+  color:var(--text);
+  font-weight:600;
+  line-height:1.4;
+}
+.mental p{font-size:11px;color:var(--muted);margin:0;line-height:1.55}
+
+.takeaway{
+  padding:10px 12px;
+  border:1px solid var(--line2);
+  background:var(--panel3);
+  border-radius:var(--radius);
+  color:var(--text);
+  font-size:12px;
+  line-height:1.6;
+}
+.takeaway strong{color:var(--accent);font-weight:600}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.mini{
+  background:var(--panel3);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:11px 12px;
+}
+.mini h3{font-size:11.5px;margin:0 0 6px;font-weight:600}
+.mini p{font-size:11.5px;color:var(--muted);margin:0;line-height:1.6}
+
+.steps{
+  counter-reset:s;
+  list-style:none;padding:0;margin:0;
+  display:flex;flex-direction:column;gap:7px;
+}
+.steps li{
+  counter-increment:s;
+  display:flex;gap:9px;
+  font-size:11.5px;
+  color:var(--muted);
+  line-height:1.55;
+}
+.steps li:before{
+  content:counter(s);
+  flex:none;
+  width:20px;height:20px;
+  display:grid;place-items:center;
+  border:1px solid var(--line2);
+  border-radius:var(--radius-sm);
+  background:var(--panel3);
+  color:var(--accent);
+  font-size:10px;
+  font-variant-numeric:tabular-nums;
+  margin-top:1px;
+}
+
+.pseudo{
+  white-space:pre-wrap;
+  overflow:auto;
+  background:var(--lab-bg);
+  color:var(--lab-text);
+  border:1px solid var(--lab-border);
+  border-radius:var(--radius);
+  padding:12px 14px;
+  font:11.5px/1.7 var(--font);
+  margin:0;
+}
+
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);margin-top:14px}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{
+  border-bottom:1px solid var(--line);
+  padding:7px 10px;
+  text-align:left;
+  vertical-align:top;
+}
+tr:last-child td{border-bottom:0}
+th{
+  font-size:9.5px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--subtle);
+  font-weight:600;
+  background:var(--panel3);
+}
 td{color:var(--muted)}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.tile{padding:12px;background:var(--panel3);border:1px solid var(--line);border-radius:9px}
-.tile span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--subtle)}
-.tile strong{display:block;color:var(--strong);font:700 14px ui-monospace,monospace;margin-top:6px}
-.tile small{font-size:10.5px;color:var(--muted);display:block;margin-top:2px}
-.notice{padding:12px 13px;background:var(--panel3);border:1px solid color-mix(in srgb,var(--warn) 35%,var(--line));border-radius:9px;font-size:12.5px;color:var(--muted);line-height:1.65}
-.notice strong{color:var(--warn)}
-.notice.info{border-color:var(--line2)}.notice.info strong{color:var(--accent)}
-.lab-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.lab-top label{font-size:11.5px;color:var(--muted)}
-.lab-input{width:100%;min-height:80px;resize:vertical;background:var(--panel3);border:1px solid var(--line2);border-radius:9px;padding:11px;color:var(--text);font:12px/1.65 ui-monospace,monospace;margin:11px 0}
-.lab-output{padding:13px;background:var(--panel3);border:1px solid var(--line);border-radius:9px;min-height:70px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--strong);font:12px/1.75 ui-monospace,monospace;overflow-x:auto}
-.lab-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.label{font-size:10px;color:var(--subtle);font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
-.code-head{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:11px 13px;background:var(--panel3);border-bottom:1px solid var(--line)}
-.code-editor{display:block;width:100%;min-height:220px;resize:vertical;border:0;border-radius:0;background:var(--panel3);color:var(--text);padding:15px;font:12px/1.7 ui-monospace,monospace;outline:0}
-.code-foot{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:9px 13px;color:var(--subtle);font-size:10px;border-top:1px solid var(--line)}
-.practice{border:1px solid var(--line);background:var(--panel3);border-radius:9px;padding:13px}
-.practice summary{cursor:pointer;font-size:12.5px;font-weight:600}
-.practice p{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.65}
-.references{display:flex;flex-direction:column;gap:8px}
-.references a{font-size:12.5px;overflow-wrap:anywhere}
-.home-hero{padding:30px;background:linear-gradient(150deg,var(--panel),var(--panel3));border:1px solid var(--line);border-radius:14px;margin-bottom:16px}
-.home-hero h1{font-size:clamp(30px,3.6vw,42px);line-height:1.1;letter-spacing:-.04em;margin:8px 0 14px;font-weight:700}
-.home-hero p{color:var(--muted);font-size:14px;max-width:720px;margin:0 0 18px;line-height:1.65}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
-.stat strong{display:block;font:700 22px ui-monospace,monospace;color:var(--strong)}
-.stat span{display:block;font-size:10.5px;color:var(--muted);margin-top:3px}
-.chapter-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.chapter-card{padding:14px;text-align:left;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text)}
-.chapter-card:hover{border-color:var(--accent)}
-.chapter-card .num{font-size:10px;color:var(--accent);letter-spacing:.09em;font-weight:800}
-.chapter-card strong{display:block;font-size:13px;margin:5px 0;font-weight:650}
-.chapter-card p{font-size:11.5px;color:var(--muted);margin:0;line-height:1.55}
-.toast{position:fixed;z-index:99;bottom:20px;left:50%;transform:translate(-50%,10px);opacity:0;pointer-events:none;background:var(--panel);border:1px solid var(--line2);border-radius:9px;padding:11px 15px;box-shadow:var(--shadow);font-size:12px;transition:opacity .14s,transform .14s}
+
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tile{
+  padding:10px 11px;
+  background:var(--panel3);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  min-width:0;
+}
+.tile span{
+  display:block;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--subtle);
+  font-weight:600;
+  margin-bottom:4px;
+}
+.tile strong{
+  display:block;
+  color:var(--text);
+  font-size:12.5px;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  overflow-wrap:anywhere;
+}
+.tile small{display:block;font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+
+.notice{
+  padding:10px 12px;
+  background:var(--panel3);
+  border:1px solid color-mix(in srgb,var(--warn) 32%,var(--line));
+  border-radius:var(--radius);
+  font-size:11.5px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.notice strong{color:var(--warn);font-weight:600}
+.notice.info{border-color:var(--line2)}
+.notice.info strong{color:var(--accent)}
+
+/* ============================================================
+   VISUAL LAB — dark stage
+   ============================================================ */
+.lab-top{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.lab-top label{
+  font-size:10px;
+  color:var(--subtle);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-right:4px;
+}
+.lab-input{
+  display:block;width:100%;
+  min-height:90px;
+  resize:vertical;
+  background:var(--lab-bg);
+  border:1px solid var(--lab-border);
+  border-radius:var(--radius);
+  padding:10px 12px;
+  color:var(--lab-text);
+  font:11.5px/1.6 var(--font);
+  margin:10px 0;
+}
+.lab-input:focus-visible{outline-color:var(--lab-amber);border-color:var(--lab-amber)}
+.lab-output{
+  padding:12px 14px;
+  background:var(--lab-deep);
+  border:1px solid var(--lab-border);
+  border-radius:var(--radius);
+  min-height:80px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  color:var(--lab-text);
+  font:11.5px/1.7 var(--font);
+  overflow-x:auto;
+}
+.lab-cols{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+.label{
+  font-size:9px;
+  color:var(--subtle);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:5px;
+}
+
+/* ============================================================
+   CODE WORKSHOP — dark stage
+   ============================================================ */
+.code-head{
+  display:flex;gap:8px;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;
+  padding:9px 12px;
+  background:var(--lab-toolbar);
+  border-bottom:1px solid var(--lab-border);
+}
+.code-head .tag{
+  border-color:var(--lab-border);
+  color:var(--lab-muted);
+  background:transparent;
+}
+.code-head .tag + .tag{margin-left:2px}
+.code-head .btn{
+  background:transparent;
+  border-color:var(--lab-border);
+  color:var(--lab-text);
+  padding:4px 8px;
+  font-size:10.5px;
+}
+.code-head .btn:hover{border-color:var(--lab-amber);color:var(--lab-amber)}
+.code-editor{
+  display:block;width:100%;
+  min-height:220px;
+  resize:vertical;
+  border:0;border-radius:0;
+  background:var(--lab-bg);
+  color:var(--lab-text);
+  padding:14px 16px;
+  font:11.5px/1.7 var(--font);
+  outline:0;
+  font-variant-numeric:tabular-nums;
+}
+.code-editor:focus-visible{outline:2px solid var(--lab-amber);outline-offset:-2px}
+.code-foot{
+  display:flex;justify-content:space-between;gap:8px;align-items:center;
+  padding:8px 12px;
+  color:var(--lab-muted);
+  font-size:10px;
+  border-top:1px solid var(--lab-border);
+  background:var(--lab-toolbar);
+  flex-wrap:wrap;
+}
+
+/* ============================================================
+   MISC CONTENT
+   ============================================================ */
+.practice{
+  border:1px solid var(--line);
+  background:var(--panel3);
+  border-radius:var(--radius);
+  padding:11px 12px;
+}
+.practice summary{
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+  list-style:none;
+  display:flex;align-items:flex-start;gap:8px;
+}
+.practice summary::-webkit-details-marker{display:none}
+.practice summary::before{
+  content:"?";
+  flex:none;
+  width:18px;height:18px;
+  display:grid;place-items:center;
+  border:1px solid var(--line2);
+  border-radius:var(--radius-sm);
+  color:var(--accent);
+  font-size:10px;
+  font-weight:600;
+}
+.practice[open] summary::before{content:"…"}
+.practice p{
+  font-size:11.5px;
+  color:var(--muted);
+  margin:9px 0 0;
+  line-height:1.65;
+}
+
+.references{display:flex;flex-direction:column;gap:6px}
+.references a{
+  font-size:11.5px;
+  overflow-wrap:anywhere;
+  line-height:1.55;
+}
+.references a:hover{text-decoration:underline}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+.home-hero{
+  padding:26px 26px 24px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  margin-bottom:14px;
+}
+.home-hero h1{
+  font-size:clamp(20px,2.4vw,26px);
+  line-height:1.25;
+  letter-spacing:-0.015em;
+  margin:6px 0 12px;
+  font-weight:600;
+}
+.home-hero p{
+  color:var(--muted);
+  font-size:12.5px;
+  max-width:680px;
+  margin:0 0 16px;
+  line-height:1.65;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin-bottom:14px;
+}
+.stat{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:11px 12px;
+  min-width:0;
+}
+.stat strong{
+  display:block;
+  font-size:18px;
+  color:var(--text);
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  line-height:1.1;
+}
+.stat span{
+  display:block;
+  font-size:9.5px;
+  color:var(--subtle);
+  margin-top:4px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+.chapter-cards{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.chapter-card{
+  padding:12px 13px;
+  text-align:left;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  color:var(--text);
+  transition:border-color .12s,background .12s;
+  min-width:0;
+}
+.chapter-card:hover{
+  border-color:var(--accent);
+  background:var(--panel2);
+}
+.chapter-card .num{
+  font-size:9px;
+  color:var(--accent);
+  letter-spacing:.1em;
+  font-weight:600;
+  text-transform:uppercase;
+}
+.chapter-card strong{
+  display:block;
+  font-size:12px;
+  margin:4px 0;
+  font-weight:600;
+  line-height:1.4;
+}
+.chapter-card p{
+  font-size:11px;
+  color:var(--muted);
+  margin:0;
+  line-height:1.55;
+}
+
+/* ============================================================
+   TOAST & FOOTER
+   ============================================================ */
+.toast{
+  position:fixed;z-index:99;
+  bottom:18px;left:50%;
+  transform:translate(-50%,10px);
+  opacity:0;pointer-events:none;
+  background:var(--panel);
+  border:1px solid var(--line2);
+  border-radius:var(--radius);
+  padding:9px 14px;
+  font-size:11.5px;
+  color:var(--text);
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+  transition:opacity .14s, transform .14s;
+  max-width:calc(100vw - 32px);
+}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-.footer{font-size:10.5px;color:var(--subtle);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:6px 2px 14px;align-items:center}
-.plot{width:100%;height:auto;display:block;background:var(--bg);border:1px solid var(--line);border-radius:8px;margin:6px 0}
-@media(max-width:1080px){.layout{grid-template-columns:240px minmax(360px,1fr)}main{padding:24px 22px 36px}}
-@media(max-width:840px){.topbar{height:auto;min-height:60px;flex-wrap:wrap;gap:10px;padding:10px 14px}.top-meta{display:none}.top-actions{margin-left:auto}.top-actions label{display:none}.layout{display:block}.sidebar{position:static;height:auto;max-height:none;border:0;border-bottom:1px solid var(--line);padding:14px}.tree{max-height:260px;overflow:auto}.side-foot{display:none}main{padding:20px 15px 32px}.idea{grid-template-columns:1fr}.mental{order:-1}.stats{grid-template-columns:1fr 1fr}.chapter-cards,.two,.lab-cols{grid-template-columns:1fr}}
-@media(max-width:520px){.brand small{display:none}.brand-mark{width:30px;height:30px}.brand strong{font-size:12px}.top-actions select{max-width:92px;padding:6px;font-size:10px}.top-actions .btn{padding:6px 8px;font-size:10px}.chapter-cards{grid-template-columns:1fr}.tiles{grid-template-columns:1fr}.home-hero{padding:20px}.home-hero h1{font-size:30px}.header h1{font-size:27px}.body,.panel-head{padding-left:15px;padding-right:15px}.footer{display:block}.footer span{display:block;margin-bottom:6px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
-@media print{.topbar,.sidebar,.header-actions,.lab-top,.btn,.toast{display:none!important}.layout{display:block}main{padding:0;max-width:none}.panel,.home-hero{break-inside:avoid;box-shadow:none}body{background:#fff;color:#111}}
-</style></head><body>
+
+.footer{
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  align-items:center;
+  padding:12px 2px 6px;
+  font-size:10px;
+  color:var(--subtle);
+  border-top:1px solid var(--line);
+  margin-top:20px;
+}
+
+/* ============================================================
+   PLOT
+   ============================================================ */
+.plot{
+  width:100%;height:auto;display:block;
+  background:var(--lab-deep);
+  border:1px solid var(--lab-border);
+  border-radius:var(--radius);
+  margin:8px 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1080px){
+  .layout{grid-template-columns:236px minmax(0,1fr)}
+  main{padding:22px 20px 36px}
+}
+@media(max-width:840px){
+  .topbar{height:auto;min-height:56px;flex-wrap:wrap;gap:10px;padding:10px 14px}
+  .top-meta{display:none}
+  .top-actions{margin-left:auto}
+  .top-actions label{display:none}
+  .layout{display:block}
+  .sidebar{
+    position:static;height:auto;max-height:none;
+    border-right:0;border-bottom:1px solid var(--line);
+    padding:14px;
+  }
+  .tree{max-height:280px;overflow:auto}
+  .side-foot{display:none}
+  main{padding:18px 15px 32px}
+  .idea{grid-template-columns:1fr}
+  .mental{order:-1}
+  .stats{grid-template-columns:1fr 1fr}
+  .chapter-cards,.two,.lab-cols{grid-template-columns:1fr}
+  .header h1{font-size:20px}
+  .home-hero h1{font-size:20px}
+}
+@media(max-width:520px){
+  .brand{font-size:11.5px}
+  .top-actions select{max-width:88px;padding:5px 6px;font-size:10px}
+  .top-actions .btn{padding:5px 7px;font-size:10px}
+  .chapter-cards{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr}
+  .home-hero{padding:18px}
+  .body,.panel-head{padding-left:13px;padding-right:13px}
+  .footer{display:block}
+  .footer span{display:block;margin-bottom:5px}
+}
+
+/* ============================================================
+   MOTION & PRINT
+   ============================================================ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+@media print{
+  .topbar,.sidebar,.header-actions,.lab-top,.btn,.toast,.lab-input,.code-head,.code-foot{display:none!important}
+  .layout{display:block}
+  main{padding:0;max-width:none}
+  .panel,.home-hero{break-inside:avoid;box-shadow:none}
+  .pseudo,.lab-output,.code-editor{
+    background:#fff !important;color:#111 !important;border-color:#ccc !important;
+  }
+  body{background:#fff;color:#111}
+  a{color:#111;text-decoration:underline}
+}
+</style>
+</head>
+<body>
 
 <header class="topbar">
-  <a class="brand" href="#home" id="homeLink"><span class="brand-mark">Az</span><span><strong>Az DP &amp; Optimization Lab</strong><small>DYNAMIC PROGRAMMING · OPTIMIZATION</small></span></a>
+  <a class="brand" href="#home" id="homeLink">
+    <strong>aznur</strong>
+    <span class="brand-slash">/</span>
+    <span class="brand-title">dynamic programming and optimization</span>
+  </a>
   <div class="top-meta" id="catalogCount"></div>
   <div class="top-actions">
     <label for="themeSelect">Theme</label>
     <select id="themeSelect" aria-label="Theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select>
-    <button class="btn" id="printBtn">Print / PDF</button>
-    <button class="btn" id="exportBtn">Export</button>
-    <button class="btn" id="importBtn">Import</button>
+    <button class="btn" id="printBtn" type="button">Print / PDF</button>
+    <button class="btn" id="exportBtn" type="button">Export</button>
+    <button class="btn" id="importBtn" type="button">Import</button>
     <input type="file" id="importFile" accept="application/json,.json" hidden>
   </div>
 </header>
@@ -121,13 +893,13 @@ td{color:var(--muted)}
 <div class="layout">
   <aside class="sidebar" aria-label="Course navigation">
     <div class="side-title"><span>COURSE CATALOG</span><span class="pill" id="lessonCount">0</span></div>
-    <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search DP and optimization…" aria-label="Search lessons"><kbd>/</kbd></div>
+    <div class="search"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search DP and optimization…" aria-label="Search lessons"><kbd>/</kbd></div>
     <label class="filter">Chapter<select id="chapterFilter"><option value="all">All chapters</option></select></label>
     <nav class="tree" id="courseTree" aria-label="Lessons"></nav>
     <div class="side-foot">
       <div class="progress-row"><span>COURSE PROGRESS</span><strong id="progressText">0 / 0</strong></div>
       <div class="progress" id="progressBar"><div id="progressFill"></div></div>
-      <div class="side-actions"><button class="btn" data-page="home">Home</button><button class="btn" data-page="progress">Progress</button></div>
+      <div class="side-actions"><button class="btn" data-page="home" type="button">Home</button><button class="btn" data-page="progress" type="button">Progress</button></div>
     </div>
   </aside>
   <main id="mainView" tabindex="-1" aria-live="polite"></main>
@@ -1196,49 +1968,736 @@ const RAW=[
 
 const LESSONS=RAW.map(mk);
 const byId=Object.fromEntries(LESSONS.map(x=>[x.id,x]));
-
+</script>
+<script>
 /* ============================================================
    Code examples
    ============================================================ */
 const CODE={
- "overlapping":{python:`import functools\n\n# Without memoization: exponential\ncalls_naive = [0]\ndef fib_naive(n):\n    calls_naive[0] += 1\n    if n <= 1: return n\n    return fib_naive(n-1) + fib_naive(n-2)\n\nfib_naive(20)\nprint("naive calls for fib(20):", calls_naive[0])\n\n# With memoization: linear\n@functools.lru_cache(None)\ndef fib_memo(n):\n    if n <= 1: return n\n    return fib_memo(n-1) + fib_memo(n-2)\n\nprint("fib(20) with memo:", fib_memo(20))\nprint("cache size:", fib_memo.cache_info().currsize)\n`},
- "memoization":{python:`import functools\n\n@functools.lru_cache(None)\ndef paths(m, n):\n    if m == 0 or n == 0: return 1\n    return paths(m-1, n) + paths(m, n-1)\n\nprint(paths(3, 3))\nprint("cache entries:", paths.cache_info().currsize)\n`},
- "tabulation":{python:`def knapsack(items, W):\n    n = len(items)\n    dp = [0] * (W + 1)\n    for w_i, v_i in items:\n        for w in range(W, w_i - 1, -1):  # go downward for 0/1\n            dp[w] = max(dp[w], dp[w - w_i] + v_i)\n    return dp[W]\n\nitems = [(3, 5), (4, 6), (5, 7)]\nW = 10\nprint(knapsack(items, W))\n`},
- "fibonacci":{python:`def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\nprint(fib(20))\nprint(fib(100))\n\n# Fast doubling: O(log n)\ndef fib_fast(n):\n    if n == 0: return (0, 1)\n    a, b = fib_fast(n >> 1)\n    c = a * (2 * b - a)\n    d = a * a + b * b\n    if n & 1:\n        return (d, c + d)\n    return (c, d)\n\nprint(fib_fast(100)[0])\n`},
- "climbing":{python:`def ways(n):\n    if n <= 1: return 1\n    a, b = 1, 1\n    for _ in range(n - 1):\n        a, b = b, a + b\n    return b\n\nprint(ways(10))\n`},
- "grid-paths":{python:`def grid_paths(m, n):\n    dp = [[1] * n for _ in range(m)]\n    for i in range(1, m):\n        for j in range(1, n):\n            dp[i][j] = dp[i-1][j] + dp[i][j-1]\n    return dp[m-1][n-1]\n\nprint(grid_paths(3, 3))\nprint(grid_paths(8, 8))\n\n# With obstacles\n\ndef grid_paths_obstacles(grid):\n    m, n = len(grid), len(grid[0])\n    dp = [[0] * n for _ in range(m)]\n    dp[0][0] = 1 if grid[0][0] == 0 else 0\n    for i in range(m):\n        for j in range(n):\n            if grid[i][j] == 1: continue\n            if i > 0: dp[i][j] += dp[i-1][j]\n            if j > 0: dp[i][j] += dp[i][j-1]\n    return dp[m-1][n-1]\n\nprint(grid_paths_obstacles([[0,0,0],[0,1,0],[0,0,0]]))\n`},
- "edit-distance":{python:`def edit_distance(a, b):\n    n, m = len(a), len(b)\n    prev = list(range(m + 1))\n    for i in range(1, n + 1):\n        curr = [i] + [0] * m\n        for j in range(1, m + 1):\n            cost = 0 if a[i-1] == b[j-1] else 1\n            curr[j] = min(prev[j] + 1, curr[j-1] + 1, prev[j-1] + cost)\n        prev = curr\n    return prev[m]\n\nprint(edit_distance("kitten", "sitting"))\n`},
- "lcs":{python:`def lcs(a, b):\n    n, m = len(a), len(b)\n    dp = [[0] * (m + 1) for _ in range(n + 1)]\n    for i in range(1, n + 1):\n        for j in range(1, m + 1):\n            if a[i-1] == b[j-1]:\n                dp[i][j] = dp[i-1][j-1] + 1\n            else:\n                dp[i][j] = max(dp[i-1][j], dp[i][j-1])\n    # reconstruct\n    i, j = n, m\n    result = []\n    while i > 0 and j > 0:\n        if a[i-1] == b[j-1]:\n            result.append(a[i-1]); i -= 1; j -= 1\n        elif dp[i-1][j] >= dp[i][j-1]:\n            i -= 1\n        else:\n            j -= 1\n    return dp[n][m], ''.join(reversed(result))\n\nlength, seq = lcs("ABCBDAB", "BDCABA")\nprint(length, seq)\n`},
- "knapsack":{python:`def knapsack_01(items, W):\n    n = len(items)\n    dp = [[0] * (W + 1) for _ in range(n + 1)]\n    for i in range(1, n + 1):\n        w_i, v_i = items[i-1]\n        for w in range(W + 1):\n            dp[i][w] = dp[i-1][w]\n            if w >= w_i:\n                dp[i][w] = max(dp[i][w], dp[i-1][w - w_i] + v_i)\n    return dp[n][W]\n\nitems = [(3, 5), (4, 6), (5, 7)]\nprint(knapsack_01(items, 10))\n`},
- "unbounded":{python:`def unbounded_knapsack(items, W):\n    dp = [0] * (W + 1)\n    for w in range(W + 1):\n        for w_i, v_i in items:\n            if w >= w_i:\n                dp[w] = max(dp[w], dp[w - w_i] + v_i)\n    return dp[W]\n\nitems = [(3, 5), (4, 6), (5, 7)]\nprint(unbounded_knapsack(items, 10))\n`},
- "subset-sum":{python:`def subset_sum(nums, target):\n    reachable = 1  # bit 0 set\n    for a in nums:\n        reachable |= reachable << a\n    return (reachable >> target) & 1\n\nprint(subset_sum([3, 34, 4, 12, 5, 2], 9))\n`},
- "bitmask":{python:`def tsp(dist):\n    n = len(dist)\n    INF = float('inf')\n    dp = [[INF] * n for _ in range(1 << n)]\n    for i in range(n):\n        dp[1 << i][i] = dist[0][i]\n    for mask in range(1 << n):\n        for last in range(n):\n            if not (mask >> last) & 1: continue\n            if dp[mask][last] == INF: continue\n            for nxt in range(n):\n                if (mask >> nxt) & 1: continue\n                new_mask = mask | (1 << nxt)\n                new_cost = dp[mask][last] + dist[last][nxt]\n                if new_cost < dp[new_mask][nxt]:\n                    dp[new_mask][nxt] = new_cost\n    full = (1 << n) - 1\n    return min(dp[full][i] + dist[i][0] for i in range(n))\n\ndist = [[0,10,15,20],[10,0,35,25],[15,35,0,30],[20,25,30,0]]\nprint("TSP cost:", tsp(dist))\n`},
- "sos-dp":{python:`def sos(g, n):\n    F = list(g)\n    for i in range(n):\n        for mask in range(1 << n):\n            if mask & (1 << i):\n                F[mask] += F[mask ^ (1 << i)]\n    return F\n\ng = [1, 2, 4, 8]  # n = 2\nprint(sos(g, 2))\n`},
- "lis":{python:`import bisect\n\n\ndef lis_length(a):\n    tails = []\n    for x in a:\n        i = bisect.bisect_left(tails, x)\n        if i == len(tails): tails.append(x)\n        else: tails[i] = x\n    return len(tails)\n\n\na = [10, 9, 2, 5, 3, 7, 101, 18]\nprint(lis_length(a))\n`},
- "kadane":{python:`def kadane(a):\n    best = cur = a[0]\n    start = end = s = 0\n    for i in range(1, len(a)):\n        if a[i] > cur + a[i]:\n            cur = a[i]; s = i\n        else:\n            cur = cur + a[i]\n        if cur > best:\n            best = cur; start, end = s, i\n    return best, start, end\n\na = [-2, 1, -3, 4, -1, 2, 1, -5, 4]\nprint(kadane(a))\n`},
- "interval":{python:`def matrix_chain(dims):\n    n = len(dims) - 1\n    dp = [[0] * n for _ in range(n)]\n    for length in range(2, n + 1):\n        for i in range(n - length + 1):\n            j = i + length - 1\n            dp[i][j] = float('inf')\n            for k in range(i, j):\n                cost = dp[i][k] + dp[k+1][j] + dims[i] * dims[k+1] * dims[j+1]\n                dp[i][j] = min(dp[i][j], cost)\n    return dp[0][n-1]\n\nprint(matrix_chain([10, 30, 5, 60]))\n`},
- "matrix-chain":{python:`def matrix_chain(dims):\n    n = len(dims) - 1\n    dp = [[0] * n for _ in range(n)]\n    split = [[0] * n for _ in range(n)]\n    for length in range(2, n + 1):\n        for i in range(n - length + 1):\n            j = i + length - 1\n            dp[i][j] = float('inf')\n            for k in range(i, j):\n                cost = dp[i][k] + dp[k+1][j] + dims[i] * dims[k+1] * dims[j+1]\n                if cost < dp[i][j]:\n                    dp[i][j] = cost\n                    split[i][j] = k\n    def parens(i, j):\n        if i == j: return f"M{i+1}"\n        k = split[i][j]\n        return f"({parens(i, k)} {parens(k+1, j)})"\n    return dp[0][n-1], parens(0, n-1)\n\nprint(matrix_chain([40, 20, 30, 10, 30]))\n`},
- "partition":{python:`def partition_dp(a, k):\n    n = len(a)\n    INF = float('inf')\n    prefix = [0] * (n + 1)\n    for i in range(n): prefix[i+1] = prefix[i] + a[i]\n    def cost(i, j):\n        # cost of a group from i to j (sum squared)\n        s = prefix[j+1] - prefix[i]\n        return s * s\n    dp = [[INF] * (k + 1) for _ in range(n + 1)]\n    dp[0][0] = 0\n    for i in range(1, n + 1):\n        for g in range(1, k + 1):\n            for m in range(i):\n                if dp[m][g-1] < INF:\n                    dp[i][g] = min(dp[i][g], dp[m][g-1] + cost(m, i-1))\n    return dp[n][k]\n\nprint(partition_dp([1, 4, 2, 8, 5], 2))\n`},
- "prefix-sums":{python:`a = [3, 1, 4, 1, 5, 9, 2, 6]\nprefix = [0] * (len(a) + 1)\nfor i in range(len(a)):\n    prefix[i+1] = prefix[i] + a[i]\n\ndef range_sum(l, r):\n    return prefix[r] - prefix[l]\n\nprint("sum a[2..5]:", range_sum(2, 6))\nprint("total:", prefix[-1])\n`},
- "monotonic-queue":{python:`from collections import deque\n\n\ndef sliding_window_max(a, k):\n    dq = deque()\n    result = []\n    for i, x in enumerate(a):\n        while dq and a[dq[-1]] <= x:\n            dq.pop()\n        dq.append(i)\n        while dq[0] <= i - k:\n            dq.popleft()\n        if i >= k - 1:\n            result.append(a[dq[0]])\n    return result\n\nprint(sliding_window_max([1, 3, -1, -3, 5, 3, 6, 7], 3))\n`},
- "cht":{python:`class CHT:\n    def __init__(self):\n        self.hull = []\n    def add_line(self, m, b):\n        while len(self.hull) >= 2:\n            m1, b1 = self.hull[-2]\n            m2, b2 = self.hull[-1]\n            if (b2 - b1) * (m - m1) >= (b - b1) * (m2 - m1):\n                self.hull.pop()\n            else:\n                break\n        self.hull.append((m, b))\n    def query(self, x):\n        lo, hi = 0, len(self.hull) - 1\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if self.hull[mid][0] * x + self.hull[mid][1] >= self.hull[mid+1][0] * x + self.hull[mid+1][1]:\n                lo = mid + 1\n            else:\n                hi = mid\n        m, b = self.hull[lo]\n        return m * x + b\n\nhull = CHT()\nhull.add_line(2, 3)\nhull.add_line(1, 5)\nhull.add_line(-1, 10)\nfor x in [0, 1, 2, 3, 5]:\n    print(x, hull.query(x))\n`},
- "li-chao":{python:`# Li Chao tree for the minimum of lines over integer x in [lo, hi]\nclass LiChao:\n    def __init__(self, lo, hi):\n        self.lo = lo\n        self.hi = hi\n        self.tree = {}\n    def add_line(self, m, b, node=1, l=None, r=None):\n        if l is None: l, r = self.lo, self.hi\n        if node not in self.tree:\n            self.tree[node] = (m, b); return\n        cm, cb = self.tree[node]\n        mid = (l + r) // 2\n        # ensure the new line is better at mid\n        if m * mid + b < cm * mid + cb:\n            self.tree[node], (m, b) = (m, b), (cm, cb)\n            cm, cb = self.tree[node]\n        if l == r: return\n        if m * l + b < cm * l + cb:\n            self.add_line(m, b, 2*node, l, mid)\n        elif m * r + b < cm * r + cb:\n            self.add_line(m, b, 2*node+1, mid+1, r)\n    def query(self, x, node=1, l=None, r=None):\n        if l is None: l, r = self.lo, self.hi\n        if node not in self.tree: return float('inf')\n        cm, cb = self.tree[node]\n        best = cm * x + cb\n        if l == r: return best\n        mid = (l + r) // 2\n        if x <= mid:\n            return min(best, self.query(x, 2*node, l, mid))\n        else:\n            return min(best, self.query(x, 2*node+1, mid+1, r))\n\nlt = LiChao(-10, 10)\nlt.add_line(2, 3)\nlt.add_line(1, 5)\nlt.add_line(-1, 10)\nfor x in [-5, 0, 5, 10]:\n    print(x, lt.query(x))\n`},
- "mitm":{python:`from bisect import bisect_right\n\n\ndef subset_sum_mitm(nums, target):\n    n = len(nums)\n    half = n // 2\n    left = [0]\n    for x in nums[:half]:\n        left += [s + x for s in left]\n    right = [0]\n    for x in nums[half:]:\n        right += [s + x for s in right]\n    right.sort()\n    best = 0\n    for s in left:\n        idx = bisect_right(right, target - s) - 1\n        if idx >= 0:\n            best = max(best, s + right[idx])\n    return best\n\nnums = [1, 2, 3, 5, 8, 13, 21, 34]\nprint(subset_sum_mitm(nums, 30))\n`},
- "activity":{python:`def activity_selection(acts):\n    acts.sort(key=lambda x: x[1])\n    result = []\n    last_end = -1\n    for s, e in acts:\n        if s >= last_end:\n            result.append((s, e))\n            last_end = e\n    return result\n\nacts = [(1,4),(3,5),(0,6),(5,7),(3,9),(5,9),(6,10),(8,11),(8,12),(2,14),(12,16)]\nprint(activity_selection(acts))\n`},
- "huffman":{python:`import heapq\nfrom collections import Counter\n\n\ndef huffman(freqs):\n    heap = [[f, [s, '']] for s, f in freqs.items()]\n    heapq.heapify(heap)\n    while len(heap) > 1:\n        lo = heapq.heappop(heap)\n        hi = heapq.heappop(heap)\n        for pair in lo[1:]:\n            pair[1] = '0' + pair[1]\n        for pair in hi[1:]:\n            pair[1] = '1' + pair[1]\n        heapq.heappush(heap, [lo[0] + hi[0]] + lo[1:] + hi[1:])\n    return sorted(heapq.heappop(heap)[1:], key=lambda p: p[1])\n\nfreqs = {'A': 5, 'B': 9, 'C': 12, 'D': 13, 'E': 16, 'F': 45}\ncodes = huffman(freqs)\nfor s, c in codes:\n    print(f"  {s}: {c}")\ntotal = sum(len(c) * freqs[s] for s, c in codes)\nprint("total bits:", total)\n`},
- "interval-scheduling":{python:`import heapq\n\n\ndef min_resources(intervals):\n    intervals.sort(key=lambda x: x[0])\n    heap = []\n    for s, e in intervals:\n        if heap and heap[0] <= s:\n            heapq.heapreplace(heap, e)\n        else:\n            heapq.heappush(heap, e)\n    return len(heap)\n\nintervals = [(0, 30), (5, 10), (15, 20)]\nprint(min_resources(intervals))\n`},
- "backtracking":{python:`def solve_n_queens(n):\n    solutions = []\n    def backtrack(row, cols, diag1, diag2, board):\n        if row == n:\n            solutions.append(board[:])\n            return\n        for col in range(n):\n            if col in cols or (row + col) in diag1 or (row - col) in diag2:\n                continue\n            cols.add(col); diag1.add(row + col); diag2.add(row - col)\n            board.append(col)\n            backtrack(row + 1, cols, diag1, diag2, board)\n            board.pop(); cols.remove(col); diag1.remove(row + col); diag2.remove(row - col)\n    backtrack(0, set(), set(), set(), [])\n    return solutions\n\nsolutions = solve_n_queens(6)\nprint(f"6-queens solutions: {len(solutions)}")\nfor s in solutions[:3]:\n    print(s)\n`},
- "branch-bound":{python:`import heapq\n\n\ndef knapsack_bb(items, W):\n    items = sorted(items, key=lambda x: -x[1]/x[0])  # by value/weight\n    n = len(items)\n    best = [0]\n    def bound(i, w, v):\n        # fractional knapsack bound\n        result = v\n        total_w = w\n        j = i\n        while j < n and total_w + items[j][0] <= W:\n            total_w += items[j][0]\n            result += items[j][1]\n            j += 1\n        if j < n:\n            result += (W - total_w) * items[j][1] / items[j][0]\n        return result\n    def search(i, w, v):\n        if w > W: return\n        if i == n:\n            best[0] = max(best[0], v); return\n        if bound(i, w, v) <= best[0]: return\n        # take item i\n        search(i+1, w + items[i][0], v + items[i][1])\n        # skip item i\n        search(i+1, w, v)\n    search(0, 0, 0)\n    return best[0]\n\nitems = [(3, 5), (4, 6), (5, 7)]\nprint(knapsack_bb(items, 10))\n`},
- "a-star":{python:`import heapq\n\n\ndef a_star(grid, start, goal):\n    def h(p):\n        return abs(p[0] - goal[0]) + abs(p[1] - goal[1])\n    R, C = len(grid), len(grid[0])\n    open_set = [(h(start), 0, start, [start])]\n    closed = set()\n    while open_set:\n        f, g, cur, path = heapq.heappop(open_set)\n        if cur == goal:\n            return g, path\n        if cur in closed: continue\n        closed.add(cur)\n        for dx, dy in [(1,0),(-1,0),(0,1),(0,-1)]:\n            nx, ny = cur[0]+dx, cur[1]+dy\n            if 0 <= nx < R and 0 <= ny < C and grid[nx][ny] == 0 and (nx,ny) not in closed:\n                ng = g + 1\n                heapq.heappush(open_set, (ng + h((nx,ny)), ng, (nx,ny), path + [(nx,ny)]))\n    return None\n\ngrid = [[0]*6 for _ in range(6)]\nprint(a_star(grid, (0,0), (5,5)))\n`},
- "simplex":{python:`# Simple LP: maximize c^T x subject to Ax <= b, x >= 0\n# Uses scipy if available, otherwise shows the setup\n\ntry:\n    import numpy as np\n    from scipy.optimize import linprog\n\n    c = [-3, -2]        # maximize 3x + 2y = minimize -3x - 2y\n    A = [[1, 1], [1, 3]]\n    b = [4, 6]\n    res = linprog(c, A_ub=A, b_ub=b, bounds=[(0, None), (0, None)])\n    print("optimal value:", -res.fun)\n    print("optimal x:", res.x)\nexcept ImportError:\n    print("Install scipy to run this example.")\n    print("Manual simplex or scipy.optimize.linprog works.")\n`},
- "assignment":{python:`from itertools import permutations\n\n\ndef hungarian_bruteforce(cost):\n    n = len(cost)\n    best = float('inf')\n    best_perm = None\n    for perm in permutations(range(n)):\n        total = sum(cost[i][perm[i]] for i in range(n))\n        if total < best:\n            best = total\n            best_perm = perm\n    return best, best_perm\n\ncost = [[9, 2, 7], [6, 4, 3], [5, 8, 1]]\nprint(hungarian_bruteforce(cost))\n`},
- "gd":{python:`def gradient_descent(f, grad, x0, lr=0.1, tol=1e-6, max_iter=1000):\n    x = x0\n    for _ in range(max_iter):\n        g = grad(x)\n        if abs(g) < tol: break\n        x = x - lr * g\n    return x\n\n# Minimize f(x) = x^2 + 3x + 5\nf = lambda x: x*x + 3*x + 5\ngrad = lambda x: 2*x + 3\nprint(gradient_descent(f, grad, 10.0))\nprint("true minimum at x =", -1.5, "value =", f(-1.5))\n`},
- "sgd":{python:`import random\n\n\ndef sgd(data, grad_loss, x0, lr=0.01, epochs=20, batch=10):\n    x = list(x0)\n    for _ in range(epochs):\n        random.shuffle(data)\n        for i in range(0, len(data), batch):\n            batch_data = data[i:i+batch]\n            g = grad_loss(x, batch_data)\n            for k in range(len(x)):\n                x[k] -= lr * g[k]\n    return x\n\n# Linear regression with MSE loss\nimport random as rnd\nrnd.seed(0)\ntrue_w = [2.0, -1.0]\ndata = [(rnd.gauss(0,1), rnd.gauss(0,1)) for _ in range(1000)]\ndata = [(a, b, true_w[0]*a + true_w[1]*b + rnd.gauss(0, 0.1)) for a, b in data]\n\ndef grad_loss(w, batch):\n    g = [0.0, 0.0]\n    for a, b, y in batch:\n        pred = w[0]*a + w[1]*b\n        err = pred - y\n        g[0] += 2*err*a\n        g[1] += 2*err*b\n    return [x/len(batch) for x in g]\n\nprint("SGD:", sgd(data, grad_loss, [0.0, 0.0], lr=0.01))\nprint("true:", true_w)\n`},
- "momentum":{python:`def momentum_gd(f, grad, x0, lr=0.1, beta=0.9, tol=1e-6, max_iter=1000):\n    x = x0\n    v = 0.0\n    for _ in range(max_iter):\n        g = grad(x)\n        if abs(g) < tol: break\n        v = beta * v + g\n        x = x - lr * v\n    return x\n\nf = lambda x: x*x + 3*x + 5\ngrad = lambda x: 2*x + 3\nprint(momentum_gd(f, grad, 10.0))\n`},
- "newton":{python:`def newton_1d(f, fp, fpp, x0, tol=1e-9, max_iter=100):\n    x = x0\n    for _ in range(max_iter):\n        if abs(fp(x)) < tol: break\n        x = x - fp(x) / fpp(x)\n    return x\n\n# f(x) = x^4 - 3x^3 + 2\nf = lambda x: x**4 - 3*x**3 + 2\nfp = lambda x: 4*x**3 - 9*x**2\nfpp = lambda x: 12*x**2 - 18*x\n\nprint(newton_1d(f, fp, fpp, 3.0))\nprint("true min near x = 2.25")\n`},
- "bfgs":{python:`import numpy as np\n\n# Minimize Rosenbrock function\ndef f(x):\n    return (1 - x[0])**2 + 100*(x[1] - x[0]**2)**2\n\ndef grad(x):\n    return np.array([\n        -2*(1 - x[0]) - 400*x[0]*(x[1] - x[0]**2),\n        200*(x[1] - x[0]**2)\n    ])\n\ndef bfgs(f, grad, x0, tol=1e-6, max_iter=200):\n    x = np.array(x0, dtype=float)\n    B = np.eye(len(x))\n    for _ in range(max_iter):\n        g = grad(x)\n        if np.linalg.norm(g) < tol: break\n        d = -B @ g\n        # simple backtracking line search\n        alpha = 1.0\n        while f(x + alpha * d) > f(x) + 1e-4 * alpha * (g @ d):\n            alpha *= 0.5\n            if alpha < 1e-12: break\n        s = alpha * d\n        x_new = x + s\n        y = grad(x_new) - g\n        rho = 1.0 / (y @ s)\n        I = np.eye(len(x))\n        B = (I - rho * np.outer(s, y)) @ B @ (I - rho * np.outer(y, s)) + rho * np.outer(s, s)\n        x = x_new\n    return x\n\nprint(bfgs(f, grad, [-1.2, 1.0]))\nprint("true minimum: [1, 1]")\n`},
- "nelder-mead":{python:`import numpy as np\n\n\ndef nelder_mead(f, x0, sigma=0.5, tol=1e-6, max_iter=1000):\n    n = len(x0)\n    simplex = [np.array(x0, dtype=float)]\n    for i in range(n):\n        p = np.array(x0, dtype=float)\n        p[i] += sigma\n        simplex.append(p)\n    simplex = np.array(simplex)\n    alpha, gamma, rho, sig = 1.0, 2.0, 0.5, 0.5\n    for _ in range(max_iter):\n        order = np.argsort([f(p) for p in simplex])\n        simplex = simplex[order]\n        if np.linalg.norm(simplex[-1] - simplex[0]) < tol: break\n        centroid = simplex[:-1].mean(axis=0)\n        x_r = centroid + alpha * (centroid - simplex[-1])\n        if f(simplex[0]) <= f(x_r) < f(simplex[-2]):\n            simplex[-1] = x_r\n        elif f(x_r) < f(simplex[0]):\n            x_e = centroid + gamma * (x_r - centroid)\n            simplex[-1] = x_e if f(x_e) < f(x_r) else x_r\n        else:\n            x_c = centroid + rho * (simplex[-1] - centroid)\n            if f(x_c) < f(simplex[-1]):\n                simplex[-1] = x_c\n            else:\n                for i in range(1, n+1):\n                    simplex[i] = simplex[0] + sig * (simplex[i] - simplex[0])\n    return simplex[0]\n\n# Rosenbrock again\nf = lambda x: (1 - x[0])**2 + 100*(x[1] - x[0]**2)**2\nprint(nelder_mead(f, [-1.2, 1.0]))\n`},
- "pareto":{python:`def pareto_front(points):\n    front = []\n    for p in points:\n        dominated = False\n        for q in points:\n            if p != q and all(q[i] <= p[i] for i in range(len(p))) and any(q[i] < p[i] for i in range(len(p))):\n                dominated = True; break\n        if not dominated:\n            front.append(p)\n    return front\n\npoints = [(1,5),(2,4),(3,3),(4,2),(5,1),(4,5),(5,4),(2,2)]\nprint("Pareto front:", pareto_front(points))\n`},
+ "overlapping":{python:`import functools
+
+# Without memoization: exponential
+calls_naive = [0]
+def fib_naive(n):
+    calls_naive[0] += 1
+    if n <= 1: return n
+    return fib_naive(n-1) + fib_naive(n-2)
+
+fib_naive(20)
+print("naive calls for fib(20):", calls_naive[0])
+
+# With memoization: linear
+@functools.lru_cache(None)
+def fib_memo(n):
+    if n <= 1: return n
+    return fib_memo(n-1) + fib_memo(n-2)
+
+print("fib(20) with memo:", fib_memo(20))
+print("cache size:", fib_memo.cache_info().currsize)
+`},
+ "memoization":{python:`import functools
+
+@functools.lru_cache(None)
+def paths(m, n):
+    if m == 0 or n == 0: return 1
+    return paths(m-1, n) + paths(m, n-1)
+
+print(paths(3, 3))
+print("cache entries:", paths.cache_info().currsize)
+`},
+ "tabulation":{python:`def knapsack(items, W):
+    n = len(items)
+    dp = [0] * (W + 1)
+    for w_i, v_i in items:
+        for w in range(W, w_i - 1, -1):  # go downward for 0/1
+            dp[w] = max(dp[w], dp[w - w_i] + v_i)
+    return dp[W]
+
+items = [(3, 5), (4, 6), (5, 7)]
+W = 10
+print(knapsack(items, W))
+`},
+ "fibonacci":{python:`def fib(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
+print(fib(20))
+print(fib(100))
+
+# Fast doubling: O(log n)
+def fib_fast(n):
+    if n == 0: return (0, 1)
+    a, b = fib_fast(n >> 1)
+    c = a * (2 * b - a)
+    d = a * a + b * b
+    if n & 1:
+        return (d, c + d)
+    return (c, d)
+
+print(fib_fast(100)[0])
+`},
+ "climbing":{python:`def ways(n):
+    if n <= 1: return 1
+    a, b = 1, 1
+    for _ in range(n - 1):
+        a, b = b, a + b
+    return b
+
+print(ways(10))
+`},
+ "grid-paths":{python:`def grid_paths(m, n):
+    dp = [[1] * n for _ in range(m)]
+    for i in range(1, m):
+        for j in range(1, n):
+            dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    return dp[m-1][n-1]
+
+print(grid_paths(3, 3))
+print(grid_paths(8, 8))
+
+# With obstacles
+def grid_paths_obstacles(grid):
+    m, n = len(grid), len(grid[0])
+    dp = [[0] * n for _ in range(m)]
+    dp[0][0] = 1 if grid[0][0] == 0 else 0
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j] == 1: continue
+            if i > 0: dp[i][j] += dp[i-1][j]
+            if j > 0: dp[i][j] += dp[i][j-1]
+    return dp[m-1][n-1]
+
+print(grid_paths_obstacles([[0,0,0],[0,1,0],[0,0,0]]))
+`},
+ "edit-distance":{python:`def edit_distance(a, b):
+    n, m = len(a), len(b)
+    prev = list(range(m + 1))
+    for i in range(1, n + 1):
+        curr = [i] + [0] * m
+        for j in range(1, m + 1):
+            cost = 0 if a[i-1] == b[j-1] else 1
+            curr[j] = min(prev[j] + 1, curr[j-1] + 1, prev[j-1] + cost)
+        prev = curr
+    return prev[m]
+
+print(edit_distance("kitten", "sitting"))
+`},
+ "lcs":{python:`def lcs(a, b):
+    n, m = len(a), len(b)
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if a[i-1] == b[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    # reconstruct
+    i, j = n, m
+    result = []
+    while i > 0 and j > 0:
+        if a[i-1] == b[j-1]:
+            result.append(a[i-1]); i -= 1; j -= 1
+        elif dp[i-1][j] >= dp[i][j-1]:
+            i -= 1
+        else:
+            j -= 1
+    return dp[n][m], ''.join(reversed(result))
+
+length, seq = lcs("ABCBDAB", "BDCABA")
+print(length, seq)
+`},
+ "knapsack":{python:`def knapsack_01(items, W):
+    n = len(items)
+    dp = [[0] * (W + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        w_i, v_i = items[i-1]
+        for w in range(W + 1):
+            dp[i][w] = dp[i-1][w]
+            if w >= w_i:
+                dp[i][w] = max(dp[i][w], dp[i-1][w - w_i] + v_i)
+    return dp[n][W]
+
+items = [(3, 5), (4, 6), (5, 7)]
+print(knapsack_01(items, 10))
+`},
+ "unbounded":{python:`def unbounded_knapsack(items, W):
+    dp = [0] * (W + 1)
+    for w in range(W + 1):
+        for w_i, v_i in items:
+            if w >= w_i:
+                dp[w] = max(dp[w], dp[w - w_i] + v_i)
+    return dp[W]
+
+items = [(3, 5), (4, 6), (5, 7)]
+print(unbounded_knapsack(items, 10))
+`},
+ "subset-sum":{python:`def subset_sum(nums, target):
+    reachable = 1  # bit 0 set
+    for a in nums:
+        reachable |= reachable << a
+    return (reachable >> target) & 1
+
+print(subset_sum([3, 34, 4, 12, 5, 2], 9))
+`},
+ "bitmask":{python:`def tsp(dist):
+    n = len(dist)
+    INF = float('inf')
+    dp = [[INF] * n for _ in range(1 << n)]
+    for i in range(n):
+        dp[1 << i][i] = dist[0][i]
+    for mask in range(1 << n):
+        for last in range(n):
+            if not (mask >> last) & 1: continue
+            if dp[mask][last] == INF: continue
+            for nxt in range(n):
+                if (mask >> nxt) & 1: continue
+                new_mask = mask | (1 << nxt)
+                new_cost = dp[mask][last] + dist[last][nxt]
+                if new_cost < dp[new_mask][nxt]:
+                    dp[new_mask][nxt] = new_cost
+    full = (1 << n) - 1
+    return min(dp[full][i] + dist[i][0] for i in range(n))
+
+dist = [[0,10,15,20],[10,0,35,25],[15,35,0,30],[20,25,30,0]]
+print("TSP cost:", tsp(dist))
+`},
+ "sos-dp":{python:`def sos(g, n):
+    F = list(g)
+    for i in range(n):
+        for mask in range(1 << n):
+            if mask & (1 << i):
+                F[mask] += F[mask ^ (1 << i)]
+    return F
+
+g = [1, 2, 4, 8]  # n = 2
+print(sos(g, 2))
+`},
+ "lis":{python:`import bisect
+
+def lis_length(a):
+    tails = []
+    for x in a:
+        i = bisect.bisect_left(tails, x)
+        if i == len(tails): tails.append(x)
+        else: tails[i] = x
+    return len(tails)
+
+a = [10, 9, 2, 5, 3, 7, 101, 18]
+print(lis_length(a))
+`},
+ "kadane":{python:`def kadane(a):
+    best = cur = a[0]
+    start = end = s = 0
+    for i in range(1, len(a)):
+        if a[i] > cur + a[i]:
+            cur = a[i]; s = i
+        else:
+            cur = cur + a[i]
+        if cur > best:
+            best = cur; start, end = s, i
+    return best, start, end
+
+a = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+print(kadane(a))
+`},
+ "interval":{python:`def matrix_chain(dims):
+    n = len(dims) - 1
+    dp = [[0] * n for _ in range(n)]
+    for length in range(2, n + 1):
+        for i in range(n - length + 1):
+            j = i + length - 1
+            dp[i][j] = float('inf')
+            for k in range(i, j):
+                cost = dp[i][k] + dp[k+1][j] + dims[i] * dims[k+1] * dims[j+1]
+                dp[i][j] = min(dp[i][j], cost)
+    return dp[0][n-1]
+
+print(matrix_chain([10, 30, 5, 60]))
+`},
+ "matrix-chain":{python:`def matrix_chain(dims):
+    n = len(dims) - 1
+    dp = [[0] * n for _ in range(n)]
+    split = [[0] * n for _ in range(n)]
+    for length in range(2, n + 1):
+        for i in range(n - length + 1):
+            j = i + length - 1
+            dp[i][j] = float('inf')
+            for k in range(i, j):
+                cost = dp[i][k] + dp[k+1][j] + dims[i] * dims[k+1] * dims[j+1]
+                if cost < dp[i][j]:
+                    dp[i][j] = cost
+                    split[i][j] = k
+    def parens(i, j):
+        if i == j: return f"M{i+1}"
+        k = split[i][j]
+        return f"({parens(i, k)} {parens(k+1, j)})"
+    return dp[0][n-1], parens(0, n-1)
+
+print(matrix_chain([40, 20, 30, 10, 30]))
+`},
+ "partition":{python:`def partition_dp(a, k):
+    n = len(a)
+    INF = float('inf')
+    prefix = [0] * (n + 1)
+    for i in range(n): prefix[i+1] = prefix[i] + a[i]
+    def cost(i, j):
+        # cost of a group from i to j (sum squared)
+        s = prefix[j+1] - prefix[i]
+        return s * s
+    dp = [[INF] * (k + 1) for _ in range(n + 1)]
+    dp[0][0] = 0
+    for i in range(1, n + 1):
+        for g in range(1, k + 1):
+            for m in range(i):
+                if dp[m][g-1] < INF:
+                    dp[i][g] = min(dp[i][g], dp[m][g-1] + cost(m, i-1))
+    return dp[n][k]
+
+print(partition_dp([1, 4, 2, 8, 5], 2))
+`},
+ "prefix-sums":{python:`a = [3, 1, 4, 1, 5, 9, 2, 6]
+prefix = [0] * (len(a) + 1)
+for i in range(len(a)):
+    prefix[i+1] = prefix[i] + a[i]
+
+def range_sum(l, r):
+    return prefix[r] - prefix[l]
+
+print("sum a[2..5]:", range_sum(2, 6))
+print("total:", prefix[-1])
+`},
+ "monotonic-queue":{python:`from collections import deque
+
+def sliding_window_max(a, k):
+    dq = deque()
+    result = []
+    for i, x in enumerate(a):
+        while dq and a[dq[-1]] <= x:
+            dq.pop()
+        dq.append(i)
+        while dq[0] <= i - k:
+            dq.popleft()
+        if i >= k - 1:
+            result.append(a[dq[0]])
+    return result
+
+print(sliding_window_max([1, 3, -1, -3, 5, 3, 6, 7], 3))
+`},
+ "cht":{python:`class CHT:
+    def __init__(self):
+        self.hull = []
+    def add_line(self, m, b):
+        while len(self.hull) >= 2:
+            m1, b1 = self.hull[-2]
+            m2, b2 = self.hull[-1]
+            if (b2 - b1) * (m - m1) >= (b - b1) * (m2 - m1):
+                self.hull.pop()
+            else:
+                break
+        self.hull.append((m, b))
+    def query(self, x):
+        lo, hi = 0, len(self.hull) - 1
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if self.hull[mid][0] * x + self.hull[mid][1] >= self.hull[mid+1][0] * x + self.hull[mid+1][1]:
+                lo = mid + 1
+            else:
+                hi = mid
+        m, b = self.hull[lo]
+        return m * x + b
+
+hull = CHT()
+hull.add_line(2, 3)
+hull.add_line(1, 5)
+hull.add_line(-1, 10)
+for x in [0, 1, 2, 3, 5]:
+    print(x, hull.query(x))
+`},
+ "li-chao":{python:`# Li Chao tree for the minimum of lines over integer x in [lo, hi]
+class LiChao:
+    def __init__(self, lo, hi):
+        self.lo = lo
+        self.hi = hi
+        self.tree = {}
+    def add_line(self, m, b, node=1, l=None, r=None):
+        if l is None: l, r = self.lo, self.hi
+        if node not in self.tree:
+            self.tree[node] = (m, b); return
+        cm, cb = self.tree[node]
+        mid = (l + r) // 2
+        # ensure the new line is better at mid
+        if m * mid + b < cm * mid + cb:
+            self.tree[node], (m, b) = (m, b), (cm, cb)
+            cm, cb = self.tree[node]
+        if l == r: return
+        if m * l + b < cm * l + cb:
+            self.add_line(m, b, 2*node, l, mid)
+        elif m * r + b < cm * r + cb:
+            self.add_line(m, b, 2*node+1, mid+1, r)
+    def query(self, x, node=1, l=None, r=None):
+        if l is None: l, r = self.lo, self.hi
+        if node not in self.tree: return float('inf')
+        cm, cb = self.tree[node]
+        best = cm * x + cb
+        if l == r: return best
+        mid = (l + r) // 2
+        if x <= mid:
+            return min(best, self.query(x, 2*node, l, mid))
+        else:
+            return min(best, self.query(x, 2*node+1, mid+1, r))
+
+lt = LiChao(-10, 10)
+lt.add_line(2, 3)
+lt.add_line(1, 5)
+lt.add_line(-1, 10)
+for x in [-5, 0, 5, 10]:
+    print(x, lt.query(x))
+`},
+ "mitm":{python:`from bisect import bisect_right
+
+def subset_sum_mitm(nums, target):
+    n = len(nums)
+    half = n // 2
+    left = [0]
+    for x in nums[:half]:
+        left += [s + x for s in left]
+    right = [0]
+    for x in nums[half:]:
+        right += [s + x for s in right]
+    right.sort()
+    best = 0
+    for s in left:
+        idx = bisect_right(right, target - s) - 1
+        if idx >= 0:
+            best = max(best, s + right[idx])
+    return best
+
+nums = [1, 2, 3, 5, 8, 13, 21, 34]
+print(subset_sum_mitm(nums, 30))
+`},
+ "activity":{python:`def activity_selection(acts):
+    acts.sort(key=lambda x: x[1])
+    result = []
+    last_end = -1
+    for s, e in acts:
+        if s >= last_end:
+            result.append((s, e))
+            last_end = e
+    return result
+
+acts = [(1,4),(3,5),(0,6),(5,7),(3,9),(5,9),(6,10),(8,11),(8,12),(2,14),(12,16)]
+print(activity_selection(acts))
+`},
+ "huffman":{python:`import heapq
+from collections import Counter
+
+def huffman(freqs):
+    heap = [[f, [s, '']] for s, f in freqs.items()]
+    heapq.heapify(heap)
+    while len(heap) > 1:
+        lo = heapq.heappop(heap)
+        hi = heapq.heappop(heap)
+        for pair in lo[1:]:
+            pair[1] = '0' + pair[1]
+        for pair in hi[1:]:
+            pair[1] = '1' + pair[1]
+        heapq.heappush(heap, [lo[0] + hi[0]] + lo[1:] + hi[1:])
+    return sorted(heapq.heappop(heap)[1:], key=lambda p: p[1])
+
+freqs = {'A': 5, 'B': 9, 'C': 12, 'D': 13, 'E': 16, 'F': 45}
+codes = huffman(freqs)
+for s, c in codes:
+    print(f"  {s}: {c}")
+total = sum(len(c) * freqs[s] for s, c in codes)
+print("total bits:", total)
+`},
+ "interval-scheduling":{python:`import heapq
+
+def min_resources(intervals):
+    intervals.sort(key=lambda x: x[0])
+    heap = []
+    for s, e in intervals:
+        if heap and heap[0] <= s:
+            heapq.heapreplace(heap, e)
+        else:
+            heapq.heappush(heap, e)
+    return len(heap)
+
+intervals = [(0, 30), (5, 10), (15, 20)]
+print(min_resources(intervals))
+`},
+ "backtracking":{python:`def solve_n_queens(n):
+    solutions = []
+    def backtrack(row, cols, diag1, diag2, board):
+        if row == n:
+            solutions.append(board[:])
+            return
+        for col in range(n):
+            if col in cols or (row + col) in diag1 or (row - col) in diag2:
+                continue
+            cols.add(col); diag1.add(row + col); diag2.add(row - col)
+            board.append(col)
+            backtrack(row + 1, cols, diag1, diag2, board)
+            board.pop(); cols.remove(col); diag1.remove(row + col); diag2.remove(row - col)
+    backtrack(0, set(), set(), set(), [])
+    return solutions
+
+solutions = solve_n_queens(6)
+print(f"6-queens solutions: {len(solutions)}")
+for s in solutions[:3]:
+    print(s)
+`},
+ "branch-bound":{python:`import heapq
+
+def knapsack_bb(items, W):
+    items = sorted(items, key=lambda x: -x[1]/x[0])  # by value/weight
+    n = len(items)
+    best = [0]
+    def bound(i, w, v):
+        # fractional knapsack bound
+        result = v
+        total_w = w
+        j = i
+        while j < n and total_w + items[j][0] <= W:
+            total_w += items[j][0]
+            result += items[j][1]
+            j += 1
+        if j < n:
+            result += (W - total_w) * items[j][1] / items[j][0]
+        return result
+    def search(i, w, v):
+        if w > W: return
+        if i == n:
+            best[0] = max(best[0], v); return
+        if bound(i, w, v) <= best[0]: return
+        # take item i
+        search(i+1, w + items[i][0], v + items[i][1])
+        # skip item i
+        search(i+1, w, v)
+    search(0, 0, 0)
+    return best[0]
+
+items = [(3, 5), (4, 6), (5, 7)]
+print(knapsack_bb(items, 10))
+`},
+ "a-star":{python:`import heapq
+
+def a_star(grid, start, goal):
+    def h(p):
+        return abs(p[0] - goal[0]) + abs(p[1] - goal[1])
+    R, C = len(grid), len(grid[0])
+    open_set = [(h(start), 0, start, [start])]
+    closed = set()
+    while open_set:
+        f, g, cur, path = heapq.heappop(open_set)
+        if cur == goal:
+            return g, path
+        if cur in closed: continue
+        closed.add(cur)
+        for dx, dy in [(1,0),(-1,0),(0,1),(0,-1)]:
+            nx, ny = cur[0]+dx, cur[1]+dy
+            if 0 <= nx < R and 0 <= ny < C and grid[nx][ny] == 0 and (nx,ny) not in closed:
+                ng = g + 1
+                heapq.heappush(open_set, (ng + h((nx,ny)), ng, (nx,ny), path + [(nx,ny)]))
+    return None
+
+grid = [[0]*6 for _ in range(6)]
+print(a_star(grid, (0,0), (5,5)))
+`},
+ "simplex":{python:`# Simple LP: maximize c^T x subject to Ax <= b, x >= 0
+# Uses scipy if available, otherwise shows the setup
+try:
+    import numpy as np
+    from scipy.optimize import linprog
+
+    c = [-3, -2]        # maximize 3x + 2y = minimize -3x - 2y
+    A = [[1, 1], [1, 3]]
+    b = [4, 6]
+    res = linprog(c, A_ub=A, b_ub=b, bounds=[(0, None), (0, None)])
+    print("optimal value:", -res.fun)
+    print("optimal x:", res.x)
+except ImportError:
+    print("Install scipy to run this example.")
+    print("Manual simplex or scipy.optimize.linprog works.")
+`},
+ "assignment":{python:`from itertools import permutations
+
+def hungarian_bruteforce(cost):
+    n = len(cost)
+    best = float('inf')
+    best_perm = None
+    for perm in permutations(range(n)):
+        total = sum(cost[i][perm[i]] for i in range(n))
+        if total < best:
+            best = total
+            best_perm = perm
+    return best, best_perm
+
+cost = [[9, 2, 7], [6, 4, 3], [5, 8, 1]]
+print(hungarian_bruteforce(cost))
+`},
+ "gd":{python:`def gradient_descent(f, grad, x0, lr=0.1, tol=1e-6, max_iter=1000):
+    x = x0
+    for _ in range(max_iter):
+        g = grad(x)
+        if abs(g) < tol: break
+        x = x - lr * g
+    return x
+
+# Minimize f(x) = x^2 + 3x + 5
+f = lambda x: x*x + 3*x + 5
+grad = lambda x: 2*x + 3
+print(gradient_descent(f, grad, 10.0))
+print("true minimum at x =", -1.5, "value =", f(-1.5))
+`},
+ "sgd":{python:`import random
+
+def sgd(data, grad_loss, x0, lr=0.01, epochs=20, batch=10):
+    x = list(x0)
+    for _ in range(epochs):
+        random.shuffle(data)
+        for i in range(0, len(data), batch):
+            batch_data = data[i:i+batch]
+            g = grad_loss(x, batch_data)
+            for k in range(len(x)):
+                x[k] -= lr * g[k]
+    return x
+
+# Linear regression with MSE loss
+import random as rnd
+rnd.seed(0)
+true_w = [2.0, -1.0]
+data = [(rnd.gauss(0,1), rnd.gauss(0,1)) for _ in range(1000)]
+data = [(a, b, true_w[0]*a + true_w[1]*b + rnd.gauss(0, 0.1)) for a, b in data]
+
+def grad_loss(w, batch):
+    g = [0.0, 0.0]
+    for a, b, y in batch:
+        pred = w[0]*a + w[1]*b
+        err = pred - y
+        g[0] += 2*err*a
+        g[1] += 2*err*b
+    return [x/len(batch) for x in g]
+
+print("SGD:", sgd(data, grad_loss, [0.0, 0.0], lr=0.01))
+print("true:", true_w)
+`},
+ "momentum":{python:`def momentum_gd(f, grad, x0, lr=0.1, beta=0.9, tol=1e-6, max_iter=1000):
+    x = x0
+    v = 0.0
+    for _ in range(max_iter):
+        g = grad(x)
+        if abs(g) < tol: break
+        v = beta * v + g
+        x = x - lr * v
+    return x
+
+f = lambda x: x*x + 3*x + 5
+grad = lambda x: 2*x + 3
+print(momentum_gd(f, grad, 10.0))
+`},
+ "newton":{python:`def newton_1d(f, fp, fpp, x0, tol=1e-9, max_iter=100):
+    x = x0
+    for _ in range(max_iter):
+        if abs(fp(x)) < tol: break
+        x = x - fp(x) / fpp(x)
+    return x
+
+# f(x) = x^4 - 3x^3 + 2
+f = lambda x: x**4 - 3*x**3 + 2
+fp = lambda x: 4*x**3 - 9*x**2
+fpp = lambda x: 12*x**2 - 18*x
+
+print(newton_1d(f, fp, fpp, 3.0))
+print("true min near x = 2.25")
+`},
+ "bfgs":{python:`import numpy as np
+
+# Minimize Rosenbrock function
+def f(x):
+    return (1 - x[0])**2 + 100*(x[1] - x[0]**2)**2
+
+def grad(x):
+    return np.array([
+        -2*(1 - x[0]) - 400*x[0]*(x[1] - x[0]**2),
+        200*(x[1] - x[0]**2)
+    ])
+
+def bfgs(f, grad, x0, tol=1e-6, max_iter=200):
+    x = np.array(x0, dtype=float)
+    B = np.eye(len(x))
+    for _ in range(max_iter):
+        g = grad(x)
+        if np.linalg.norm(g) < tol: break
+        d = -B @ g
+        # simple backtracking line search
+        alpha = 1.0
+        while f(x + alpha * d) > f(x) + 1e-4 * alpha * (g @ d):
+            alpha *= 0.5
+            if alpha < 1e-12: break
+        s = alpha * d
+        x_new = x + s
+        y = grad(x_new) - g
+        rho = 1.0 / (y @ s)
+        I = np.eye(len(x))
+        B = (I - rho * np.outer(s, y)) @ B @ (I - rho * np.outer(y, s)) + rho * np.outer(s, s)
+        x = x_new
+    return x
+
+print(bfgs(f, grad, [-1.2, 1.0]))
+print("true minimum: [1, 1]")
+`},
+ "nelder-mead":{python:`import numpy as np
+
+def nelder_mead(f, x0, sigma=0.5, tol=1e-6, max_iter=1000):
+    n = len(x0)
+    simplex = [np.array(x0, dtype=float)]
+    for i in range(n):
+        p = np.array(x0, dtype=float)
+        p[i] += sigma
+        simplex.append(p)
+    simplex = np.array(simplex)
+    alpha, gamma, rho, sig = 1.0, 2.0, 0.5, 0.5
+    for _ in range(max_iter):
+        order = np.argsort([f(p) for p in simplex])
+        simplex = simplex[order]
+        if np.linalg.norm(simplex[-1] - simplex[0]) < tol: break
+        centroid = simplex[:-1].mean(axis=0)
+        x_r = centroid + alpha * (centroid - simplex[-1])
+        if f(simplex[0]) <= f(x_r) < f(simplex[-2]):
+            simplex[-1] = x_r
+        elif f(x_r) < f(simplex[0]):
+            x_e = centroid + gamma * (x_r - centroid)
+            simplex[-1] = x_e if f(x_e) < f(x_r) else x_r
+        else:
+            x_c = centroid + rho * (simplex[-1] - centroid)
+            if f(x_c) < f(simplex[-1]):
+                simplex[-1] = x_c
+            else:
+                for i in range(1, n+1):
+                    simplex[i] = simplex[0] + sig * (simplex[i] - simplex[0])
+    return simplex[0]
+
+# Rosenbrock again
+f = lambda x: (1 - x[0])**2 + 100*(x[1] - x[0]**2)**2
+print(nelder_mead(f, [-1.2, 1.0]))
+`},
+ "pareto":{python:`def pareto_front(points):
+    front = []
+    for p in points:
+        dominated = False
+        for q in points:
+            if p != q and all(q[i] <= p[i] for i in range(len(p))) and any(q[i] < p[i] for i in range(len(p))):
+                dominated = True; break
+        if not dominated:
+            front.append(p)
+    return front
+
+points = [(1,5),(2,4),(3,3),(4,2),(5,1),(4,5),(5,4),(2,2)]
+print("Pareto front:", pareto_front(points))
+`}
 };
 
 /* ============================================================
@@ -1255,14 +2714,16 @@ function fmtNum(x,d=4){
  if(Math.abs(x)>=1e6||Math.abs(x)<1e-4)return x.toExponential(d-1);
  return parseFloat(x.toFixed(d)).toString();
 }
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function plotSVG(fn,xMin,xMax,yMin,yMax,points,width=700,height=250){
  const padL=40,padR=15,padT=15,padB=30;
  const px=x=>padL+(x-xMin)/(xMax-xMin)*(width-padL-padR);
  const py=y=>height-padB-(y-yMin)/(yMax-yMin)*(height-padT-padB);
  let out='';
  // axes
- out+=`<line x1="${padL}" y1="${height-padB}" x2="${width-padR}" y2="${height-padB}" stroke="var(--line2)" stroke-width="1"/>`;
- out+=`<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${height-padB}" stroke="var(--line2)" stroke-width="1"/>`;
+ out+=`<line x1="${padL}" y1="${height-padB}" x2="${width-padR}" y2="${height-padB}" stroke="var(--lab-border)" stroke-width="1"/>`;
+ out+=`<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${height-padB}" stroke="var(--lab-border)" stroke-width="1"/>`;
  // curve
  if(fn){
   let path='';
@@ -1274,7 +2735,7 @@ function plotSVG(fn,xMin,xMax,yMin,yMax,points,width=700,height=250){
    const cx=px(x),cy=py(Math.max(yMin,Math.min(yMax,y)));
    path+=i===0?`M ${cx.toFixed(1)} ${cy.toFixed(1)}`:` L ${cx.toFixed(1)} ${cy.toFixed(1)}`;
   }
-  out+=`<path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/>`;
+  out+=`<path d="${path}" fill="none" stroke="var(--lab-amber)" stroke-width="2"/>`;
  }
  // points
  if(points){
@@ -1283,10 +2744,10 @@ function plotSVG(fn,xMin,xMax,yMin,yMax,points,width=700,height=250){
   }
  }
  // labels
- out+=`<text x="${padL-6}" y="${py(yMax)+4}" text-anchor="end" font-size="10" fill="var(--subtle)" font-family="monospace">${fmtNum(yMax,2)}</text>`;
- out+=`<text x="${padL-6}" y="${py(yMin)+4}" text-anchor="end" font-size="10" fill="var(--subtle)" font-family="monospace">${fmtNum(yMin,2)}</text>`;
- out+=`<text x="${px(xMin)}" y="${height-padB+14}" text-anchor="middle" font-size="10" fill="var(--subtle)" font-family="monospace">${fmtNum(xMin,2)}</text>`;
- out+=`<text x="${px(xMax)}" y="${height-padB+14}" text-anchor="middle" font-size="10" fill="var(--subtle)" font-family="monospace">${fmtNum(xMax,2)}</text>`;
+ out+=`<text x="${padL-6}" y="${py(yMax)+4}" text-anchor="end" font-size="10" fill="var(--lab-muted)" font-family="monospace">${fmtNum(yMax,2)}</text>`;
+ out+=`<text x="${padL-6}" y="${py(yMin)+4}" text-anchor="end" font-size="10" fill="var(--lab-muted)" font-family="monospace">${fmtNum(yMin,2)}</text>`;
+ out+=`<text x="${px(xMin)}" y="${height-padB+14}" text-anchor="middle" font-size="10" fill="var(--lab-muted)" font-family="monospace">${fmtNum(xMin,2)}</text>`;
+ out+=`<text x="${px(xMax)}" y="${height-padB+14}" text-anchor="middle" font-size="10" fill="var(--lab-muted)" font-family="monospace">${fmtNum(xMax,2)}</text>`;
  return `<svg class="plot" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${out}</svg>`;
 }
 function scatterSVG(points,width=700,height=250){
@@ -1296,10 +2757,10 @@ function scatterSVG(points,width=700,height=250){
  const padL=40,padR=15,padT=15,padB=30;
  const px=x=>padL+(x-xMin)/(xMax-xMin||1)*(width-padL-padR);
  const py=y=>height-padB-(y-yMin)/(yMax-yMin||1)*(height-padT-padB);
- let out=`<line x1="${padL}" y1="${height-padB}" x2="${width-padR}" y2="${height-padB}" stroke="var(--line2)"/>`;
- out+=`<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${height-padB}" stroke="var(--line2)"/>`;
+ let out=`<line x1="${padL}" y1="${height-padB}" x2="${width-padR}" y2="${height-padB}" stroke="var(--lab-border)"/>`;
+ out+=`<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${height-padB}" stroke="var(--lab-border)"/>`;
  for(const p of points){
-  out+=`<circle cx="${px(p[0]).toFixed(1)}" cy="${py(p[1]).toFixed(1)}" r="4" fill="var(--accent)" opacity="0.8"/>`;
+  out+=`<circle cx="${px(p[0]).toFixed(1)}" cy="${py(p[1]).toFixed(1)}" r="4" fill="var(--lab-amber)" opacity="0.8"/>`;
  }
  return `<svg class="plot" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${out}</svg>`;
 }
@@ -2067,8 +3528,6 @@ function runLab(l,initial){
    State and shell
    ============================================================ */
 const state={page:'home',current:null,completed:new Set(),bookmarks:new Set(),theme:'system',drafts:{}};
-const $=s=>document.querySelector(s);
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1900)}
 function save(){try{localStorage.setItem('az-dp-opt-lab-v1',JSON.stringify({schemaVersion:1,completed:[...state.completed],bookmarks:[...state.bookmarks],theme:state.theme,current:state.current,drafts:state.drafts}))}catch(e){}}
 function load(){try{const d=JSON.parse(localStorage.getItem('az-dp-opt-lab-v1')||'null');if(!d||d.schemaVersion!==1)return;
@@ -2125,7 +3584,7 @@ function renderLesson(id){
  state.page='lesson';state.current=id;
  const c=getChapter(id);const index=LESSONS.indexOf(l);const next=LESSONS[(index+1)%LESSONS.length];
  const hasDemo=l.demo&&l.demo!=='none';
- const demoArea=hasDemo?`<section class="panel"><div class="panel-head"><h2>${esc(l.demoTitle||'Interactive teaching lab')}</h2><p>Everything runs in your browser. This is a teaching implementation, not a production solver.</p></div><div class="body"><div class="lab-top"><label for="labInput">Input</label><button class="btn" id="resetSample">Reset sample</button><button class="btn primary" id="runLab">Run lab</button></div><textarea class="lab-input" id="labInput" aria-label="Lab input">${esc(l.sample||'')}</textarea><div class="notice info"><strong>Format:</strong> see the sample for the expected format. Most labs take either a single number, a comma separated list, or lines of data.</div><div class="lab-cols"><div><div class="label">Output</div><div class="lab-output" id="labEncoded">Run the lab to see output.</div></div><div><div class="label">Explanation</div><div class="lab-output" id="labDecoded">Step notes appear here.</div></div></div></div></section>`:'';
+ const demoArea=hasDemo?`<section class="panel"><div class="panel-head"><h2>${esc(l.demoTitle||'Interactive teaching lab')}</h2><p>Everything runs in your browser. This is a teaching implementation, not a production solver.</p></div><div class="body"><div class="lab-top"><label for="labInput">Input</label><button class="btn" id="resetSample" type="button">Reset sample</button><button class="btn primary" id="runLab" type="button">Run lab</button></div><textarea class="lab-input" id="labInput" aria-label="Lab input">${esc(l.sample||'')}</textarea><div class="notice info"><strong>Format:</strong> see the sample for the expected format. Most labs take either a single number, a comma separated list, or lines of data.</div><div class="lab-cols"><div><div class="label">Output</div><div class="lab-output" id="labEncoded">Run the lab to see output.</div></div><div><div class="label">Explanation</div><div class="lab-output" id="labDecoded">Step notes appear here.</div></div></div></div></section>`:'';
  const references=refsHTML(l.refs);
  const code=state.drafts[id]??codeText(l);
  $('#mainView').innerHTML=`<div class="breadcrumb">DP &amp; Optimization Lab / ${esc(c.title)}</div>
@@ -2135,8 +3594,8 @@ function renderLesson(id){
  <p>${esc(l.summary)}</p>
  <div class="tags"><span class="tag">Level ${l.level}</span><span class="tag ${statusClass(l)}">${esc(l.status)}</span><span class="tag">${esc(c.title.replace(/^\d+\.\s*/,''))}</span></div>
  <div class="header-actions">
-  <button class="btn" id="bookmarkBtn">${state.bookmarks.has(id)?'★ Bookmarked':'☆ Bookmark'}</button>
-  <button class="btn primary" id="completeBtn">${state.completed.has(id)?'✓ Completed':'Mark complete'}</button>
+  <button class="btn" id="bookmarkBtn" type="button">${state.bookmarks.has(id)?'★ Bookmarked':'☆ Bookmark'}</button>
+  <button class="btn primary" id="completeBtn" type="button">${state.completed.has(id)?'✓ Completed':'Mark complete'}</button>
  </div>
 </header>
 <section class="panel"><div class="panel-head"><h2>1. Understand the idea</h2><p>Plain language and a mental picture</p></div><div class="body idea"><div><p>${esc(l.summary)}</p><p><strong>What problem it solves:</strong> ${esc(l.problem)}</p><div class="takeaway"><strong>Takeaway:</strong> ${esc(l.output)}</div></div><aside class="mental"><small>Mental picture</small><strong>${esc(l.mental)}</strong><p>${esc(l.mentalText)}</p></aside></div></section>
@@ -2148,7 +3607,7 @@ ${demoArea}
 <section class="panel"><div class="panel-head"><h2>6. Choices and alternatives</h2><p>Pick based on the problem structure, dimension and required guarantee</p></div><div class="body two"><div class="mini"><h3>When to use this</h3><p>${esc(l.strength)}</p></div><div class="mini"><h3>When to use something else</h3><p>${esc(l.limits)}</p></div></div></section>
 <section class="panel"><div class="panel-head"><h2>7. Check yourself</h2><p>Try to answer before you open the explanation</p></div><div class="body"><details class="practice"><summary>${esc(l.question)}</summary><p>${esc(l.answer)}</p></details></div></section>
 <section class="panel"><div class="panel-head"><h2>8. References</h2><p>Standard references for this topic</p></div><div class="body">${references}<p class="muted" style="font-size:11.5px;margin-top:14px">The labs on this page are teaching implementations. For production work use NumPy, SciPy, CVXPY, Gurobi, CPLEX, OR-Tools, or another vetted library.</p></div></section>
-<footer class="footer"><span>Az DP &amp; Optimization Lab · local learning</span><span>Lesson ${index+1} of ${LESSONS.length} · Next: ${esc(next.title)}</span><button class="btn" id="nextLesson">Next →</button></footer>`;
+<footer class="footer"><span>Az DP &amp; Optimization Lab · local learning</span><span>Lesson ${index+1} of ${LESSONS.length} · Next: ${esc(next.title)}</span><button class="btn" id="nextLesson" type="button">Next →</button></footer>`;
 
  $('#bookmarkBtn').onclick=()=>{state.bookmarks.has(id)?state.bookmarks.delete(id):state.bookmarks.add(id);save();renderLesson(id);toast(state.bookmarks.has(id)?'Bookmarked':'Bookmark removed')};
  $('#completeBtn').onclick=()=>{state.completed.has(id)?state.completed.delete(id):state.completed.add(id);save();renderTree();renderLesson(id);toast(state.completed.has(id)?'Lesson completed':'Completion removed')};
@@ -2167,10 +3626,10 @@ ${demoArea}
 
 function renderHome(){
  state.page='home';
- $('#mainView').innerHTML=`<div class="home-hero"><div class="eyebrow">AZ · ENGINEERING TOOLBOOK</div><h1>Understand DP and optimization from overlapping subproblems to CMA-ES.</h1><p>A beginner friendly course covering DP foundations, basic sequence and grid DP, knapsack and subset DP, sequence optimization, DP speedups, advanced DP techniques, greedy proofs, branch and bound, LP and integer programming, network optimization, gradient methods, gradient-free methods, and multi-objective optimization. Every lesson has a plain explanation and most have a runnable lab.</p><div class="header-actions" style="margin:0"><button class="btn primary" id="startFirst">Start at the beginning</button><button class="btn" id="resumeLesson">Continue lesson</button></div></div>
-<div class="stats"><div class="stat"><strong>${CHAPTERS.length}</strong><span>chapters</span></div><div class="stat"><strong>${LESSONS.length}</strong><span>lessons</span></div><div class="stat"><strong>${LESSONS.filter(l=>l.demo&&l.demo!=='none').length}</strong><span>runnable labs</span></div><div class="stat"><strong>1</strong><span>standalone HTML file</span></div></div>
+ $('#mainView').innerHTML=`<div class="home-hero"><div class="eyebrow">AZ · ENGINEERING TOOLBOOK</div><h1>Understand DP and optimization from overlapping subproblems to CMA-ES.</h1><p>A beginner friendly course covering DP foundations, basic sequence and grid DP, knapsack and subset DP, sequence optimization, DP speedups, advanced DP techniques, greedy proofs, branch and bound, LP and integer programming, network optimization, gradient methods, gradient-free methods, and multi-objective optimization. Every lesson has a plain explanation and most have a runnable lab.</p><div class="header-actions" style="margin:0"><button class="btn primary" id="startFirst" type="button">Start at the beginning</button><button class="btn" id="resumeLesson" type="button">Continue lesson</button></div></div>
+<div class="stats"><div class="stat"><strong>${CHAPTERS.length}</strong><span>chapters</span></div><div class="stat"><strong>${LESSONS.length}</strong><span>lessons</span></div><div class="stat"><strong>${LESSONS.filter(l=>l.demo&&l.demo!=='none').length}</strong><span>runnable labs</span></div><div class="stat"><strong>1</strong><span>standalone file</span></div></div>
 <section class="panel"><div class="panel-head"><h2>Honest scope</h2><p>One app covers the whole curriculum. Production optimization software is a separate engineering project.</p></div><div class="body two"><div class="mini"><h3>What runs here</h3><p>Overlapping subproblems demo, memoized grid paths, bottom-up knapsack, Fibonacci, climbing stairs, grid paths, edit distance, LCS, 0/1 knapsack, unbounded knapsack (coin change), bitset subset sum, bitmask TSP, SOS DP, LIS (patience sorting), Kadane, matrix chain, partition DP, prefix sums, monotonic queue, CHT demo, Li Chao tree, meet-in-the-middle, activity selection, Huffman coding, interval scheduling, N-queens backtracking, branch and bound for knapsack, LP vertex enumeration, assignment by brute force, gradient descent, SGD, momentum, Newton, BFGS on Rosenbrock, Nelder-Mead, and Pareto front extraction.</p></div><div class="mini"><h3>What does not run here</h3><p>Production implementations of divide-and-conquer optimization, Knuth optimization, SMAWK, slope trick, Aliens trick, matroid intersection, full branch-and-cut, interior point, ellipsoid, network simplex, min-cost flow, Hungarian algorithm for large n, CMA-ES, differential evolution, Bayesian optimization, NSGA-II, PTAS/FPTAS, LP rounding. For real work use NumPy, SciPy, CVXPY, OR-Tools, Gurobi, CPLEX, or another vetted library.</p></div></div></section>
-<div class="panel"><div class="panel-head"><h2>Course map</h2><p>Pick a chapter. The path runs from DP foundations to multi-objective optimization.</p></div><div class="body"><div class="chapter-cards">${CHAPTERS.map((c,i)=>`<button class="chapter-card" data-chapter="${c.id}"><span class="num">CHAPTER ${String(i+1).padStart(2,'0')} · ${c.ids.length} LESSONS</span><strong>${esc(c.title.replace(/^\d+\.\s*/,''))}</strong><p>${esc(c.desc)}</p></button>`).join('')}</div></div></div>
+<div class="panel"><div class="panel-head"><h2>Course map</h2><p>Pick a chapter. The path runs from DP foundations to multi-objective optimization.</p></div><div class="body"><div class="chapter-cards">${CHAPTERS.map((c,i)=>`<button class="chapter-card" type="button" data-chapter="${c.id}"><span class="num">CHAPTER ${String(i+1).padStart(2,'0')} · ${c.ids.length} LESSONS</span><strong>${esc(c.title.replace(/^\d+\.\s*/,''))}</strong><p>${esc(c.desc)}</p></button>`).join('')}</div></div></div>
 <footer class="footer"><span>Az DP &amp; Optimization Lab</span><span>Single file · no external runtime dependencies</span></footer>`;
  $('#startFirst').onclick=()=>openLesson('overlapping');
  $('#resumeLesson').onclick=()=>openLesson(state.current&&byId[state.current]?state.current:'overlapping');
@@ -2182,7 +3641,7 @@ function renderProgressPage(){
  $('#mainView').innerHTML=`<div class="breadcrumb">DP &amp; Optimization Lab / Bookmarks & progress</div><header class="header"><div class="eyebrow">LOCAL ONLY</div><h1>Bookmarks and progress</h1><p>Your progress stays in this browser. Export the JSON to move it or keep a backup.</p></header>
 <section class="panel"><div class="panel-head"><h2>Completed lessons</h2></div><div class="body">${state.completed.size?`<div class="references">${[...state.completed].map(id=>`<a href="#${id}" data-open="${id}">${esc(byId[id].title)}</a>`).join('')}</div>`:'<p class="muted">No lessons marked complete yet.</p>'}</div></section>
 <section class="panel"><div class="panel-head"><h2>Bookmarks</h2></div><div class="body">${state.bookmarks.size?`<div class="references">${[...state.bookmarks].map(id=>`<a href="#${id}" data-open="${id}">${esc(byId[id].title)}</a>`).join('')}</div>`:'<p class="muted">No bookmarks yet.</p>'}</div></section>
-<section class="panel"><div class="panel-head"><h2>Progress data</h2></div><div class="body"><div class="header-actions" style="margin:0"><button class="btn primary" id="exportProgress">Export progress JSON</button><button class="btn" id="clearProgress">Clear completion marks</button></div><p class="muted" style="font-size:12.5px;margin-top:14px">Import accepts only known lesson IDs and a supported schema version.</p></div></section>`;
+<section class="panel"><div class="panel-head"><h2>Progress data</h2></div><div class="body"><div class="header-actions" style="margin:0"><button class="btn primary" id="exportProgress" type="button">Export progress JSON</button><button class="btn" id="clearProgress" type="button">Clear completion marks</button></div><p class="muted" style="font-size:11.5px;margin-top:12px">Import accepts only known lesson IDs and a supported schema version.</p></div></section>`;
  $('#mainView').querySelectorAll('[data-open]').forEach(a=>a.onclick=e=>{e.preventDefault();openLesson(a.dataset.open)});
  $('#exportProgress').onclick=exportProgress;
  $('#clearProgress').onclick=()=>{if(confirm('Clear all completion marks?')){state.completed.clear();save();renderProgressPage();renderTree();toast('Completion marks cleared')}};
@@ -2244,4 +3703,6 @@ function init(){
  progress();
 }
 init();
-</script></body></html>
+</script>
+</body>
+</html>
